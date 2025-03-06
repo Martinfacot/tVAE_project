@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: markdown-rundoc
+Version: 0.3.1
+Summary: Set of markdown extensions used by rundoc utility.
+Home-page: https://gitlab.com/nul.one/markdown_rundoc
+Author: Predrag Mandic
+Author-email: predrag@eclecticiq.com
+License: BSD
+Download-URL: https://gitlab.com/nul.one/markdown_rundoc/-/archive/0.3.1/markdown_rundoc-0.3.1.tar.gz
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Documentation
+Classifier: Topic :: Software Development :: Documentation
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: Utilities
+Requires-Python: >=3.4.6
+Description-Content-Type: text/markdown
+Requires-Dist: markdown (<3.0,>=2.6.9)
+
+
+markdown\_rundoc
+==================================================
+[![PyPI version](https://badge.fury.io/py/markdown_rundoc.svg)](https://badge.fury.io/py/markdown_rundoc)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
+Markdown extensions used by rundoc project.
+
+
+

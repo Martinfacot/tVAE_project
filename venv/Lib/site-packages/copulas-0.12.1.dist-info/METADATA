@@ -1,0 +1,215 @@
+Metadata-Version: 2.2
+Name: copulas
+Version: 0.12.1
+Summary: Create tabular synthetic data using copulas-based modeling.
+Author-email: "DataCebo, Inc." <info@sdv.dev>
+License: BSL-1.1
+Project-URL: Source Code, https://github.com/sdv-dev/Copulas/
+Project-URL: Issue Tracker, https://github.com/sdv-dev/Copulas/issues
+Project-URL: Changes, https://github.com/sdv-dev/Copulas/blob/main/HISTORY.md
+Project-URL: Twitter, https://twitter.com/sdv_dev
+Project-URL: Chat, https://bit.ly/sdv-slack-invite
+Keywords: copulas
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: Free for non-commercial use
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: <3.14,>=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.21.0; python_version < "3.10"
+Requires-Dist: numpy>=1.23.3; python_version >= "3.10" and python_version < "3.12"
+Requires-Dist: numpy>=1.26.0; python_version >= "3.12" and python_version < "3.13"
+Requires-Dist: numpy>=2.1.0; python_version >= "3.13"
+Requires-Dist: pandas>=1.4.0; python_version < "3.11"
+Requires-Dist: pandas>=1.5.0; python_version >= "3.11" and python_version < "3.12"
+Requires-Dist: pandas>=2.1.1; python_version >= "3.12" and python_version < "3.13"
+Requires-Dist: pandas>=2.2.3; python_version >= "3.13"
+Requires-Dist: plotly>=5.10.0; python_version < "3.13"
+Requires-Dist: plotly>=5.12.0; python_version >= "3.13"
+Requires-Dist: scipy>=1.7.3; python_version < "3.10"
+Requires-Dist: scipy>=1.9.2; python_version >= "3.10" and python_version < "3.12"
+Requires-Dist: scipy>=1.12.0; python_version >= "3.12" and python_version < "3.13"
+Requires-Dist: scipy>=1.14.1; python_version >= "3.13"
+Provides-Extra: tutorials
+Requires-Dist: markupsafe<=2.0.1; extra == "tutorials"
+Requires-Dist: scikit-learn>=0.24; python_version < "3.12" and extra == "tutorials"
+Requires-Dist: scikit-learn>=1.3.1; python_version >= "3.12" and extra == "tutorials"
+Requires-Dist: jupyter<2,>=1.0.0; extra == "tutorials"
+Provides-Extra: test
+Requires-Dist: copulas[tutorials]; extra == "test"
+Requires-Dist: pytest<7,>=6.2.5; extra == "test"
+Requires-Dist: pytest-cov<3,>=2.6.0; extra == "test"
+Requires-Dist: pytest-rerunfailures<15,>=10.3; extra == "test"
+Requires-Dist: rundoc<0.5,>=0.4.3; extra == "test"
+Requires-Dist: tomli<3,>=2.0.0; extra == "test"
+Provides-Extra: dev
+Requires-Dist: copulas[test,tutorials]; extra == "dev"
+Requires-Dist: pip>=9.0.1; extra == "dev"
+Requires-Dist: build<2,>=1.0.0; extra == "dev"
+Requires-Dist: bump-my-version<1,>=0.18.3; extra == "dev"
+Requires-Dist: watchdog<5,>=1.0.1; extra == "dev"
+Requires-Dist: m2r<0.3,>=0.2.0; extra == "dev"
+Requires-Dist: nbsphinx<0.7,>=0.5.0; extra == "dev"
+Requires-Dist: Sphinx<3,>=1.7.1; extra == "dev"
+Requires-Dist: sphinx_rtd_theme<0.5,>=0.2.4; extra == "dev"
+Requires-Dist: sphinxcontrib_applehelp<1.0.8; extra == "dev"
+Requires-Dist: sphinxcontrib-devhelp<1.0.6; extra == "dev"
+Requires-Dist: sphinxcontrib-htmlhelp<2.0.5; extra == "dev"
+Requires-Dist: sphinxcontrib_serializinghtml<1.1.10; extra == "dev"
+Requires-Dist: sphinxcontrib_qthelp<1.0.7; extra == "dev"
+Requires-Dist: alabaster<0.7.13; extra == "dev"
+Requires-Dist: Jinja2<3,>=2; python_version < "3.12" and extra == "dev"
+Requires-Dist: Jinja2<4,>=2; python_version >= "3.12" and extra == "dev"
+Requires-Dist: ruff<1,>=0.3.2; extra == "dev"
+Requires-Dist: twine<4,>=1.10.0; extra == "dev"
+Requires-Dist: wheel>=0.30.0; extra == "dev"
+Requires-Dist: coverage<6,>=4.5.1; extra == "dev"
+Requires-Dist: tox<4,>=2.9.1; extra == "dev"
+Requires-Dist: invoke; extra == "dev"
+Requires-Dist: urllib3<1.26,>=1.20; extra == "dev"
+Requires-Dist: tabulate<0.9,>=0.8.3; extra == "dev"
+Requires-Dist: boto3<1.10,>=1.7.47; extra == "dev"
+Requires-Dist: docutils<0.15,>=0.10; extra == "dev"
+
+<p style="text-align:center">
+    <i>This repository is part of <a href="https://sdv.dev">The Synthetic Data Vault Project</a>, a project from <a href="https://datacebo.com">DataCebo</a>.</i>
+</p>
+
+[![Development Status](https://img.shields.io/badge/Development%20Status-2%20--%20Pre--Alpha-yellow)](https://pypi.org/search/?c=Development+Status+%3A%3A+2+-+Pre-Alpha)
+[![PyPi Shield](https://img.shields.io/pypi/v/copulas.svg)](https://pypi.python.org/pypi/copulas)
+[![Downloads](https://pepy.tech/badge/copulas)](https://pepy.tech/project/copulas)
+[![Unit Tests](https://github.com/sdv-dev/Copulas/actions/workflows/unit.yml/badge.svg)](https://github.com/sdv-dev/Copulas/actions/workflows/unit.yml)
+[![Coverage Status](https://codecov.io/gh/sdv-dev/Copulas/branch/main/graph/badge.svg)](https://codecov.io/gh/sdv-dev/Copulas)
+[![Slack](https://img.shields.io/badge/Community-Slack-blue?style=plastic&logo=slack)](https://bit.ly/sdv-slack-invite)
+
+<br/>
+<p align="center" style="text-align:center">
+<a href="https://github.com/sdv-dev/Copulas">
+<img width=40% src="https://github.com/sdv-dev/SDV/blob/stable/docs/images/Copulas-DataCebo.png?raw=true"></img>
+</a>
+</p>
+
+# Overview
+
+**Copulas** is a Python library for modeling multivariate distributions and sampling from them
+using copula functions.
+Given a table of numerical data, use Copulas to learn the distribution and
+generate new synthetic data following the same statistical properties.
+
+**Key Features:**
+
+* **Model multivariate data.** Choose from a variety of univariate
+distributions and copulas – including Archimedian Copulas, Gaussian Copulas and Vine Copulas.
+
+* **Compare real and synthetic data visually** after building your model. Visualizations
+are available as 1D histograms, 2D scatterplots and 3D scatterplots.
+
+* **Access & manipulate learned parameters.** With complete access to the internals
+of the model, set or tune parameters to your choosing.
+
+# Install
+
+Install the Copulas library using pip or conda.
+
+```bash
+pip install copulas
+```
+
+```bash
+conda install -c conda-forge copulas
+```
+
+# Usage
+
+Get started using a demo dataset. This dataset contains 3 numerical columns.
+
+```python
+from copulas.datasets import sample_trivariate_xyz
+
+real_data = sample_trivariate_xyz()
+real_data.head()
+```
+
+<img src="docs/images/copulas_sample_dataset.png" width="300">
+
+Model the data using a copula and use it to create synthetic data.
+The Copulas library offers many options including Gaussian Copula,
+Vine Copulas and Archimedian Copulas.
+
+```python
+from copulas.multivariate import GaussianMultivariate
+
+copula = GaussianMultivariate()
+copula.fit(real_data)
+
+synthetic_data = copula.sample(len(real_data))
+```
+
+Visualize the real and synthetic data side-by-side. Let's do this in 3D so see our full dataset.
+
+```python
+from copulas.visualization import compare_3d
+
+compare_3d(real_data, synthetic_data)
+```
+
+![Quickstart](docs/images/quickstart.png)
+
+# Tutorials
+Click below to run the code yourself on a Colab Notebook and discover new features.
+
+[![Tutorial Notebook](https://img.shields.io/badge/Tutorial-Colab-F9AB00?style=for-the-badge&logo=googlecolab&color=525252)](https://bit.ly/copulas-demo)
+
+# Community & Support
+
+Learn more about Copulas library from our [documentation](https://sdv.dev/Copulas/) site.
+
+**Questions or issues?** Join our [Slack channel](https://bit.ly/sdv-slack-invite)
+to discuss more about Copulas and synthetic data.
+If you find a bug or have a feature request, you can also
+[open an issue](https://github.com/sdv-dev/Copulas/issues/new/choose) on our GitHub.
+
+**Interested in contributing to Copulas?** Read our
+[Contribution Guide](https://sdv.dev/Copulas/contributing.html) to get started.
+
+# Credits
+
+The Copulas open source project first started at the Data to AI Lab at MIT in 2018.
+Thank you to our team of contributors who have built and maintained the library over the years!
+
+[View Contributors](https://github.com/sdv-dev/Copulas/graphs/contributors)
+
+---
+
+
+<div align="center">
+<a href="https://datacebo.com"><img align="center" width=40% src="https://github.com/sdv-dev/SDV/blob/stable/docs/images/DataCebo.png"></img></a>
+</div>
+<br/>
+<br/>
+
+[The Synthetic Data Vault Project](https://sdv.dev) was first created at MIT's [Data to AI Lab](
+https://dai.lids.mit.edu/) in 2016. After 4 years of research and traction with enterprise, we
+created [DataCebo](https://datacebo.com) in 2020 with the goal of growing the project.
+Today, DataCebo is the proud developer of SDV, the largest ecosystem for
+synthetic data generation & evaluation. It is home to multiple libraries that support synthetic
+data, including:
+
+* 🔄 Data discovery & transformation. Reverse the transforms to reproduce realistic data.
+* 🧠 Multiple machine learning models -- ranging from Copulas to Deep Learning -- to create tabular,
+  multi table and time series data.
+* 📊 Measuring quality and privacy of synthetic data, and comparing different synthetic data
+  generation models.
+
+[Get started using the SDV package](https://sdv.dev/SDV/getting_started/install.html) -- a fully
+integrated solution and your one-stop shop for synthetic data. Or, use the standalone libraries
+for specific needs.

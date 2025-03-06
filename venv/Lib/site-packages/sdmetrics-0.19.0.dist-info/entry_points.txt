@@ -1,0 +1,2 @@
+[sdmetrics]
+main = sdmetrics.cli.__main__:main

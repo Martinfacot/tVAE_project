@@ -1,0 +1,2 @@
+[ctgan]
+main = ctgan.cli.__main__:main

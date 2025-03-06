@@ -1,0 +1,2 @@
+[sdv]
+main = sdv.cli.__main__:main

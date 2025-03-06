@@ -1,0 +1,2 @@
+[rdt]
+main = rdt.cli.__main__:main
