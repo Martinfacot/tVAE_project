@@ -10,9 +10,9 @@ data = [
 ]
 
 # name csv file
-csv_filename = "data.csv"
+csv_filename = "data_test.csv"
 # name json file
-json_filename = "metadata.json"
+json_filename = "metadata_test.json"
 
 # name of the columns
 headers = ["age", "color", "size"]
@@ -23,7 +23,7 @@ with open(csv_filename, mode="w", newline="") as file:
     writer.writerow(headers)
     writer.writerows(data)   
 
-print(f"Fichier {csv_filename} créé avec succès!")
+print(f"{csv_filename} created")
 
 metadata = {
     "columns": [
@@ -39,4 +39,4 @@ metadata = {
 with open(json_filename, mode="w") as file:
     json.dump(metadata, file, indent=4)
 
-print(f"Fichier {json_filename} créé avec succès!")
+print(f"{json_filename} created")
