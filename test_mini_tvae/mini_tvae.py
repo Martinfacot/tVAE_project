@@ -52,18 +52,36 @@ class Decoder(Module):
 
 
 def _loss_function(recon_x, x, sigmas, mu, logvar, output_info, factor):
+    """recon_x: The data reconstructed by the decoder.
+
+x: Original input data.
+
+sigmas: Standard deviations for continuous columns.
+
+mu: The mean of the latent distribution.
+
+logvar: The logarithm of the variance of the latent distribution.
+
+output_info: A list containing information about the transformed columns (e.g. whether they are continuous or discrete).
+
+factor: A weighting factor for the reconstruction loss."""
+
     st = 0
     loss = []
     for column_info in output_info:
         for span_info in column_info:
             if span_info.activation_fn != 'softmax':
+                # Continuous
                 ed = st + span_info.dim
                 std = sigmas[st]
-                eq = x[:, st] - torch.tanh(recon_x[:, st])
+                eq = x[:, st] - torch.tanh(recon_x[:, st]) 
+                # error between the original value and the reconstructed value + tanh bring the reconstructed values into the interval [-1, 1]
                 loss.append((eq**2 / 2 / (std**2)).sum())
+                # root-MSE loss
                 loss.append(torch.log(std) * x.size()[0])
                 st = ed
             else:
+                # Categorical
                 ed = st + span_info.dim
                 loss.append(
                     cross_entropy(
@@ -81,6 +99,7 @@ class MiniTVAE:
     """Miniaturized TVAE implementation."""
 
     def __init__(
+        # default hyperparameters
         self,
         embedding_dim=128,
         compress_dims=(128, 128),
@@ -181,7 +200,8 @@ class MiniTVAE:
                     self.transformer.output_info_list,
                     self.loss_factor,
                 )
-                loss = loss_1 + loss_2
+                loss = loss_1 + loss_2 
+                # loss_1: Loss of reconstruction & loss_2: KLD loss
                 loss.backward()
                 optimizerAE.step()
                 self.decoder.sigma.data.clamp_(0.01, 1.0)
