@@ -19,11 +19,27 @@ class ClusterBasedNormalizer:
         self.weight_threshold = weight_threshold
         self.model = None
         self.column_name = None
+        self.missing_value_generation = 'from_column'  # Set to 'from_column' like in CTGAN
+        self.has_null = False
+        self.null_mask = None
     
     def fit(self, data, column_name):
         """Fit a Bayesian GMM."""
         self.column_name = column_name
-        column_data = data[column_name].to_numpy().reshape([-1, 1])
+        
+        # Check for null values and store the null mask
+        self.has_null = data[column_name].isnull().any()
+        if self.has_null:
+            # Store mask of missing values to recreate them during reverse_transform
+            self.null_mask = data[column_name].isnull()
+            
+            # Fill nulls with mean for GMM fitting
+            mean_val = data[column_name].mean()
+            data_filled = data.copy()
+            data_filled[column_name] = data_filled[column_name].fillna(mean_val)
+            column_data = data_filled[column_name].to_numpy().reshape([-1, 1])
+        else:
+            column_data = data[column_name].to_numpy().reshape([-1, 1])
         
         # Handle potential constant columns
         if len(np.unique(column_data)) <= 1:
@@ -82,6 +98,16 @@ class ClusterBasedNormalizer:
         """Transform continuous data."""
         data_t = data.copy()
         column = self.column_name
+        
+        # Handle null values - create a binary mask
+        is_null = np.zeros(len(data_t))
+        if self.has_null:
+            is_null = data_t[column].isnull().astype(int).values
+            
+            # Fill nulls with mean for transformation
+            mean_val = data_t[column].mean()
+            data_t[column] = data_t[column].fillna(mean_val)
+        
         column_data = data_t[column].to_numpy().reshape([-1, 1])
         
         if self.model is None:
@@ -94,6 +120,10 @@ class ClusterBasedNormalizer:
                 f'{column}.normalized': normalized,
                 f'{column}.component': component_ids
             })
+            
+            # Add is_null column if needed
+            if self.has_null:
+                result[f'{column}.is_null'] = is_null
             
             return result
         
@@ -128,6 +158,10 @@ class ClusterBasedNormalizer:
             f'{column}.component': component_ids
         })
         
+        # Add is_null column if needed
+        if self.has_null:
+            result[f'{column}.is_null'] = is_null
+        
         return result
     
     def reverse_transform(self, data):
@@ -138,6 +172,9 @@ class ClusterBasedNormalizer:
         
         normalized = data[normalized_column].to_numpy()
         component_ids = data[component_column].to_numpy().astype(int)
+        
+        # Check if we have null information
+        has_null_info = self.has_null and f'{column_name}.is_null' in data.columns
         
         output = np.zeros(len(normalized))
         for i in range(len(normalized)):
@@ -156,12 +193,22 @@ class ClusterBasedNormalizer:
             mean, std = self.means[component_id], self.stds[component_id]
             output[i] = value * std + mean
         
-        return pd.Series(output, name=column_name)
+        result = pd.Series(output, name=column_name)
+        
+        # Apply null values if we have the null info
+        if has_null_info:
+            null_mask = data[f'{column_name}.is_null'].astype(bool)
+            result[null_mask] = np.nan
+        
+        return result
     
     def get_output_sdtypes(self):
         """Return output column names."""
         column = self.column_name
-        return [f'{column}.normalized', f'{column}.component']
+        if self.has_null:
+            return [f'{column}.normalized', f'{column}.component', f'{column}.is_null']
+        else:
+            return [f'{column}.normalized', f'{column}.component']
 
 
 class OneHotEncoder:
@@ -170,17 +217,29 @@ class OneHotEncoder:
     def __init__(self):
         self.dummies = None
         self.column_name = None
+        self.has_null = False
     
     def fit(self, data, column_name):
         """Fit one-hot encoder."""
         self.column_name = column_name
-        column_data = data[column_name]
+        
+        # Check for null values 
+        self.has_null = data[column_name].isnull().any()
+        
+        # Get unique values (excluding nulls)
+        column_data = data[column_name].dropna()
         self.dummies = sorted(column_data.unique())
     
     def transform(self, data):
         """Apply one-hot encoding."""
         column = self.column_name
         column_data = data[column]
+        
+        # Create null indicator column if necessary
+        is_null = np.zeros(len(column_data))
+        if self.has_null:
+            is_null = column_data.isnull().astype(int).values
+            column_data = column_data.fillna(self.dummies[0] if self.dummies else 'missing_value')
         
         # Create one-hot encoding
         one_hot = np.zeros((len(column_data), len(self.dummies)))
@@ -191,18 +250,43 @@ class OneHotEncoder:
         
         # Create DataFrame with appropriate column names
         result = pd.DataFrame(one_hot, columns=[f'{column}_{dummy}' for dummy in self.dummies])
+        
+        # Add is_null column if needed
+        if self.has_null:
+            result[f'{column}.is_null'] = is_null
+            
         return result
     
     def reverse_transform(self, data):
         """Convert one-hot encoding back to original values."""
-        one_hot = data.to_numpy()
-        indices = np.argmax(one_hot, axis=1)
+        one_hot = data.copy()
+        
+        # Check if we have null information
+        has_null_column = f'{self.column_name}.is_null' in data.columns
+        
+        # Remove null column for one-hot processing if it exists
+        if has_null_column:
+            null_indicator = one_hot[f'{self.column_name}.is_null']
+            one_hot = one_hot.drop(columns=[f'{self.column_name}.is_null'])
+            
+        # Get original categorical values
+        one_hot_array = one_hot.to_numpy()
+        indices = np.argmax(one_hot_array, axis=1)
         values = [self.dummies[index] for index in indices]
-        return pd.Series(values, name=self.column_name)
+        result = pd.Series(values, name=self.column_name)
+        
+        # Apply null values if we have the null info
+        if has_null_column:
+            result[null_indicator.astype(bool)] = np.nan
+            
+        return result
     
     def get_output_sdtypes(self):
         """Return output column names."""
-        return [f'{self.column_name}_{dummy}' for dummy in self.dummies]
+        column_names = [f'{self.column_name}_{dummy}' for dummy in self.dummies]
+        if self.has_null:
+            column_names.append(f'{self.column_name}.is_null')
+        return column_names
 
 
 class DataTransformer:
@@ -238,7 +322,7 @@ class DataTransformer:
         column_name = data.columns[0]
         gm = ClusterBasedNormalizer(
             max_clusters=min(len(data), self._max_clusters),
-            weight_threshold=self._weight_threshold,
+            weight_threshold=self._weight_threshold, missing_value_generation='from_column'
         )
         gm.fit(data, column_name)
         num_components = sum(gm.valid_component_indicator)
@@ -276,14 +360,11 @@ class DataTransformer:
         )
 
     def _validate_data(self, data):
-        """Check for NaN values in the data."""
+        """Check for NaN values in the data and warn user."""
         if data.isna().any().any():
             columns_with_nan = data.columns[data.isna().any()].tolist()
-            raise ValueError(
-                f"Found NaN values in columns: {columns_with_nan}. "
-                "DataTransformer does not support NaN values. "
-                "Please impute or remove NaN values before fitting."
-            )
+            print(f"Note: Found NaN values in columns: {columns_with_nan}. "
+                 "These will be handled using the 'from_column' approach.")
 
     def fit(self, raw_data, discrete_columns=()):
         """Fit the ``DataTransformer``.
@@ -321,15 +402,22 @@ class DataTransformer:
         data = data.assign(**{column_name: flattened_column})
         gm = column_transform_info.transform
         transformed = gm.transform(data)
+        
+        # Check if we have null indicator column
+        has_null = f'{column_name}.is_null' in transformed.columns
 
-        # Converts the transformed data to the appropriate output format.
-        output = np.zeros((len(transformed), column_transform_info.output_dimensions))
+        # Converts the transformed data to the appropriate output format
+        output_dim = column_transform_info.output_dimensions
+        output = np.zeros((len(transformed), output_dim))
+        
+        # Add normalized values
         output[:, 0] = transformed[f'{column_name}.normalized'].to_numpy()
         
+        # Add component one-hot encoding
         index = transformed[f'{column_name}.component'].to_numpy().astype(int)
         
-        # Check if index values are within bounds and adjust if necessary
-        num_components = column_transform_info.output_dimensions - 1
+        # Check if index values are within bounds
+        num_components = output_dim - 1
         valid_index = index < num_components
         
         # Only set valid indices to 1.0
@@ -337,14 +425,12 @@ class DataTransformer:
         
         # For invalid indices, place them in the first component
         if not np.all(valid_index):
-            # Place invalid indices in the first component (index 1)
             output[np.arange(len(index))[~valid_index], 1] = 1.0
             
-            # Log warning about this adjustment
             invalid_count = np.sum(~valid_index)
             print(f"Warning: {invalid_count} samples had invalid component indices for {column_name}. "
                   f"These were assigned to the first component.")
-
+                  
         return output
 
     def _transform_discrete(self, column_transform_info, data):
@@ -370,11 +456,29 @@ class DataTransformer:
 
     def _inverse_transform_continuous(self, column_transform_info, column_data, sigmas, st):
         gm = column_transform_info.transform
-        data = pd.DataFrame(
-            column_data[:, :2], 
-            columns=gm.get_output_sdtypes()
-        ).astype(float)
-        data[data.columns[1]] = np.argmax(column_data[:, 1:], axis=1)
+        column_name = column_transform_info.column_name
+        
+        # Determine if we have null info
+        output_sdtypes = gm.get_output_sdtypes()
+        has_null_info = len(output_sdtypes) > 2 and output_sdtypes[2].endswith('.is_null')
+        
+        # Extract the needed columns for the dataframe
+        if has_null_info:
+            # We need to handle three columns: normalized, component, and is_null
+            data = pd.DataFrame({
+                output_sdtypes[0]: column_data[:, 0],  # normalized value
+                output_sdtypes[1]: np.zeros(len(column_data)),  # component - will be filled from one-hot
+                output_sdtypes[2]: column_data[:, -1]  # is_null flag
+            })
+        else:
+            # Regular case with just normalized and component
+            data = pd.DataFrame({
+                output_sdtypes[0]: column_data[:, 0],  # normalized value
+                output_sdtypes[1]: np.zeros(len(column_data))  # component - will be filled from one-hot
+            })
+        
+        # Get component from one-hot encoding (skip the normalized value column at index 0)
+        data[data.columns[1]] = np.argmax(column_data[:, 1:] if not has_null_info else column_data[:, 1:-1], axis=1)
         
         if sigmas is not None:
             selected_normalized_value = np.random.normal(data.iloc[:, 0], sigmas[st])
