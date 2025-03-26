@@ -10,7 +10,17 @@ from torch.utils.data import DataLoader, TensorDataset
 from tqdm import tqdm
 
 class Encoder(Module):
-    """Encoder for the TVAE."""
+    """Encoder for the TVAE.
+
+    Args:
+        data_dim (int):
+            Dimensions of the data.
+        compress_dims (tuple or list of ints):
+            Size of each hidden layer.
+        embedding_dim (int):
+            Size of the output vector.
+    """
+
     def __init__(self, data_dim, compress_dims, embedding_dim):
         super(Encoder, self).__init__()
         dim = data_dim
