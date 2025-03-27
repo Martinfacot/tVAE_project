@@ -322,8 +322,8 @@ class DataTransformer:
         column_name = data.columns[0]
         gm = ClusterBasedNormalizer(
             max_clusters=min(len(data), self._max_clusters),
-            weight_threshold=self._weight_threshold, missing_value_generation='from_column'
-        )
+            weight_threshold=self._weight_threshold, 
+        ) #missing_value_generation='from_column'
         gm.fit(data, column_name)
         num_components = sum(gm.valid_component_indicator)
 
