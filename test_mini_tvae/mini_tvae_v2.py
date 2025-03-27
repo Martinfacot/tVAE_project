@@ -137,14 +137,42 @@ class MiniTVAE:
         self.transformer = DataTransformer()
         self.transformer.fit(train_data, discrete_columns)
         
+        # Display original model configuration
+        if self.verbose:
+            print(f"Original compress_dims: {self.compress_dims}")
+        
+        # Get the actual data dimension after transformation
+        data_dim = self.transformer.output_dimensions
+        if self.verbose:
+            print(f"Data dimensions after transformation: {data_dim}")
+        
+        # Adjust compress_dims to match the actual input dimension
+        if len(self.compress_dims) > 0:
+            adjusted_compress_dims = (data_dim,) + self.compress_dims
+        else:
+            adjusted_compress_dims = (data_dim,)
+        
+        if self.verbose:
+            print(f"Adjusted compress_dims: {adjusted_compress_dims}")
+        
+        # Adjust decompress_dims to ensure the final output dimension matches data_dim
+        last_decompress_dim = self.decompress_dims[-1] if len(self.decompress_dims) > 0 else self.embedding_dim
+        if last_decompress_dim != data_dim:
+            adjusted_decompress_dims = self.decompress_dims + (data_dim,)
+        else:
+            adjusted_decompress_dims = self.decompress_dims
+        
+        if self.verbose:
+            print(f"Adjusted decompress_dims: {adjusted_decompress_dims}")
+        
         try:
             train_data_t = self.transformer.transform(train_data)
         except Exception as e:
             print(f"Error transforming data: {e}")
             print("Trying with more robust error handling...")
             
-            # Try again with the more robust implementation
-            train_data_t = np.zeros((len(train_data), self.transformer.output_dimensions))
+            # Error handling code as before...
+            train_data_t = np.zeros((len(train_data), data_dim))
             st = 0
             for column_transform_info in self.transformer._column_transform_info_list:
                 column_name = column_transform_info.column_name
@@ -161,16 +189,17 @@ class MiniTVAE:
                     st += dim
                 except Exception as column_error:
                     print(f"Error transforming column '{column_name}': {column_error}")
-                    # Skip this column and continue with others
                     dim = column_transform_info.output_dimensions
                     st += dim
         
         dataset = TensorDataset(torch.from_numpy(train_data_t.astype('float32')).to(self._device))
         loader = DataLoader(dataset, batch_size=self.batch_size, shuffle=True, drop_last=False)
 
-        data_dim = self.transformer.output_dimensions
-        encoder = Encoder(data_dim, self.compress_dims, self.embedding_dim).to(self._device)
-        self.decoder = Decoder(self.embedding_dim, self.decompress_dims, data_dim).to(self._device)
+        # Create encoder and decoder with adjusted dimensions
+        encoder = Encoder(data_dim, adjusted_compress_dims[1:], self.embedding_dim).to(self._device)
+        self.decoder = Decoder(self.embedding_dim, adjusted_decompress_dims, data_dim).to(self._device)
+        
+        # Rest of the fit method remains unchanged
         optimizerAE = Adam(
             list(encoder.parameters()) + list(self.decoder.parameters()), weight_decay=self.l2scale
         )

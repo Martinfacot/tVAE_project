@@ -336,21 +336,26 @@ class DataTransformer:
         )
 
     def _fit_discrete(self, data):
-        """Fit one hot encoder for discrete column.
+        """Fit one hot encoder for a discrete column.
 
         Args:
             data (pd.DataFrame):
-                A dataframe containing a column.
+                A dataframe containing a discrete column.
 
         Returns:
-            namedtuple:
-                A ``ColumnTransformInfo`` object.
+            ColumnTransformInfo:
+                A ColumnTransformInfo object.
         """
+        # Assume the column to transform is the first column in data
         column_name = data.columns[0]
         ohe = OneHotEncoder()
         ohe.fit(data, column_name)
+        
+        # Get the number of one-hot categories
         num_categories = len(ohe.dummies)
-
+        if ohe.has_null:
+            num_categories += 1  # Account for the is_null column
+        
         return ColumnTransformInfo(
             column_name=column_name,
             column_type='discrete',
