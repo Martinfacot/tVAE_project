@@ -20,10 +20,10 @@ Usage:
 Example:
 
     If you're already inside the restart_mini directory, use:
-    python __main__.py ../rhc.csv synthetic_output.csv --metadata ../metadata.json --header
+    python __main__.py ../rhc.csv synthetic_output.csv --metadata ../metadata.json
 
     Run the command from your project root directory:
-    python -m restart_mini ../rhc.csv synthetic_output.csv --metadata ../metadata.json --header
+    python -m restart_mini rhc.csv synthetic_output.csv --metadata metadata.json
 """
 
 def _parse_args():
@@ -136,9 +136,7 @@ def main():
     if args.sample_condition_column is not None:
         assert args.sample_condition_column_value is not None
 
-    sampled = model.sample(
-        num_samples, args.sample_condition_column, args.sample_condition_column_value
-    )
+    sampled = model.sample(num_samples) #args.sample_condition_column, args.sample_condition_column_value
 
     sampled.to_csv(args.output, index=False)
 
