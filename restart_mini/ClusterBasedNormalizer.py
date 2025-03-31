@@ -14,6 +14,239 @@ from rdt.transformers.null import NullTransformer
 from rdt.transformers.utils import learn_rounding_digits, logit, sigmoid
 
 
+
+EPSILON = np.finfo(np.float32).eps
+INTEGER_BOUNDS = {
+    'Int8': (-(2**7), 2**7 - 1),
+    'Int16': (-(2**15), 2**15 - 1),
+    'Int32': (-(2**31), 2**31 - 1),
+    'Int64': (-(2**63), 2**63 - 1),
+    'UInt8': (0, 2**8 - 1),
+    'UInt16': (0, 2**16 - 1),
+    'UInt32': (0, 2**32 - 1),
+    'UInt64': (0, 2**64 - 1),
+}
+
+class FloatFormatter(BaseTransformer):
+    """Transformer for numerical data.
+
+    This transformer replaces integer values with their float equivalent.
+    Non null float values are not modified.
+
+    Null values are replaced using a ``NullTransformer``.
+
+    Args:
+        missing_value_replacement (object):
+            Indicate what to replace the null values with. If an integer or float is given,
+            replace them with the given value. If the strings ``'mean'`` or ``'mode'``
+            are given, replace them with the corresponding aggregation and if ``'random'``
+            replace each null value with a random value in the data range. Defaults to ``mean``.
+         model_missing_values (bool):
+            **DEPRECATED** Whether to create a new column to indicate which values were null or
+            not. The column will be created only if there are null values. If ``True``, create
+            the new column if there are null values. If ``False``, do not create the new column
+            even if there are null values. Defaults to ``False``.
+        learn_rounding_scheme (bool):
+            Whether or not to learn what place to round to based on the data seen during ``fit``.
+            If ``True``, the data returned by ``reverse_transform`` will be rounded to that place.
+            Defaults to ``False``.
+        enforce_min_max_values (bool):
+            Whether or not to clip the data returned by ``reverse_transform`` to the min and
+            max values seen during ``fit``. Defaults to ``False``.
+        computer_representation (dtype):
+            Accepts ``'Int8'``, ``'Int16'``, ``'Int32'``, ``'Int64'``, ``'UInt8'``, ``'UInt16'``,
+            ``'UInt32'``, ``'UInt64'``, ``'Float'``.
+            Defaults to ``'Float'``.
+        missing_value_generation (str or None):
+            The way missing values are being handled. There are three strategies:
+
+                * ``random``: Randomly generates missing values based on the percentage of
+                  missing values.
+                * ``from_column``: Creates a binary column that describes whether the original
+                  value was missing. Then use it to recreate missing values.
+                * ``None``: Do nothing with the missing values on the reverse transform. Simply
+                  pass whatever data we get through.
+    """
+
+    INPUT_SDTYPE = 'numerical'
+    null_transformer = None
+    missing_value_replacement = None
+    _dtype = None
+    _rounding_digits = None
+    _min_value = None
+    _max_value = None
+
+    def __init__(
+        self,
+        missing_value_replacement='mean',
+        model_missing_values=None,
+        learn_rounding_scheme=False,
+        enforce_min_max_values=False,
+        computer_representation='Float',
+        missing_value_generation='random',
+    ):
+        super().__init__()
+        self.missing_value_replacement = missing_value_replacement
+        self._set_missing_value_generation(missing_value_generation)
+        self._set_missing_value_replacement('mean', missing_value_replacement)
+        if model_missing_values is not None:
+            self._set_model_missing_values(model_missing_values)
+
+        self.learn_rounding_scheme = learn_rounding_scheme
+        self.enforce_min_max_values = enforce_min_max_values
+        self.computer_representation = computer_representation
+
+    def _raise_out_of_bounds_error(self, value, name, bound_type, min_bound, max_bound):
+        raise ValueError(
+            f"The {bound_type} value in column '{name}' is {value}."
+            f" All values represented by '{self.computer_representation}'"
+            f' must be in the range [{min_bound}, {max_bound}].'
+        )
+
+    def _validate_values_within_bounds(self, data):
+        if not self.computer_representation.startswith('Float'):
+            fractions = data[~data.isna() & (data != (data // 1))]
+            if not fractions.empty:
+                raise ValueError(
+                    f"The column '{data.name}' contains float values {fractions.tolist()}. "
+                    f"All values represented by '{self.computer_representation}' must be integers."
+                )
+
+            min_value = data.min()
+            max_value = data.max()
+            min_bound, max_bound = INTEGER_BOUNDS[self.computer_representation]
+            if min_value < min_bound:
+                self._raise_out_of_bounds_error(
+                    min_value, data.name, 'minimum', min_bound, max_bound
+                )
+
+            if max_value > max_bound:
+                self._raise_out_of_bounds_error(
+                    max_value, data.name, 'maximum', min_bound, max_bound
+                )
+
+    def _fit(self, data):
+        """Fit the transformer to the data.
+
+        Args:
+            data (pandas.Series):
+                Data to fit.
+        """
+        self._validate_values_within_bounds(data)
+        self._dtype = data.dtype
+
+        if self.enforce_min_max_values:
+            self._min_value = data.min()
+            self._max_value = data.max()
+
+        if self.learn_rounding_scheme:
+            self._rounding_digits = learn_rounding_digits(data)
+
+        self.null_transformer = NullTransformer(
+            self.missing_value_replacement, self.missing_value_generation
+        )
+        self.null_transformer.fit(data)
+        if self.null_transformer.models_missing_values():
+            self.output_properties['is_null'] = {
+                'sdtype': 'float',
+                'next_transformer': None,
+            }
+
+    def _transform(self, data):
+        """Transform numerical data.
+
+        Integer values are replaced by their float equivalent. Non null float values
+        are left unmodified.
+
+        Args:
+            data (pandas.Series):
+                Data to transform.
+
+        Returns:
+            numpy.ndarray
+        """
+        self._validate_values_within_bounds(data)
+        data = data.astype(np.float64)
+        return self.null_transformer.transform(data)
+
+    def _reverse_transform(self, data):
+        """Convert data back into the original format.
+
+        Args:
+            data (pd.Series or numpy.ndarray):
+                Data to transform.
+
+        Returns:
+            numpy.ndarray
+        """
+        if not isinstance(data, np.ndarray):
+            data = data.to_numpy()
+
+        data = self.null_transformer.reverse_transform(data)
+        if self.enforce_min_max_values:
+            data = data.clip(self._min_value, self._max_value)
+        elif not self.computer_representation.startswith('Float'):
+            min_bound, max_bound = INTEGER_BOUNDS[self.computer_representation]
+            data = data.clip(min_bound, max_bound)
+
+        is_integer = pd.api.types.is_integer_dtype(self._dtype)
+        np_integer_with_nans = (
+            not pd.api.types.is_extension_array_dtype(self._dtype)
+            and is_integer
+            and pd.isna(data).any()
+        )
+        if self.learn_rounding_scheme and self._rounding_digits is not None:
+            data = data.round(self._rounding_digits)
+        elif is_integer:
+            data = data.round(0)
+
+        return data.astype(self._dtype if not np_integer_with_nans else 'float64')
+
+    def _set_fitted_parameters(
+        self,
+        column_name,
+        null_transformer,
+        rounding_digits=None,
+        min_max_values=None,
+        dtype='object',
+    ):
+        """Manually set the parameters on the transformer to get it into a fitted state.
+
+        Args:
+            column_name (str):
+                The name of the column to use for the transformer.
+            null_transformer (NullTransformer):
+                A fitted null transformer instance that can be used to generate
+                null values for the column.
+            min_max_values (Tuple(float) or None):
+                None or a tuple containing the (min, max) values for the transformer.
+            rounding_digits (int or None):
+                The number of digits to round to.
+            dtype (str):
+                The pandas dtype the reversed data will be converted into.
+        """
+        self.reset_randomization()
+        self.null_transformer = null_transformer
+        self.columns = [column_name]
+        self.output_columns = [column_name]
+        if self.enforce_min_max_values:
+            if not min_max_values:
+                raise TransformerInputError('Must provide min and max values for this transformer.')
+
+        if min_max_values:
+            self._min_value = min(min_max_values)
+            self._max_value = max(min_max_values)
+
+        if rounding_digits is not None:
+            self._rounding_digits = rounding_digits
+            self.learn_rounding_scheme = True
+
+        if self.null_transformer.models_missing_values():
+            self.output_columns.append(column_name + '.is_null')
+
+        self._dtype = dtype
+
+
 class ClusterBasedNormalizer(FloatFormatter):
     """Transformer for numerical data using a Bayesian Gaussian Mixture Model.
 

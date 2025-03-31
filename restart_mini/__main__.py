@@ -18,7 +18,12 @@ Usage:
                    [--output synthetic.csv]
                    
 Example:
+
+    If you're already inside the restart_mini directory, use:
     python __main__.py ../rhc.csv synthetic_output.csv --metadata ../metadata.json --header
+
+    Run the command from your project root directory:
+    python -m restart_mini ../rhc.csv synthetic_output.csv --metadata ../metadata.json --header
 """
 
 def _parse_args():
