@@ -1,3 +1,11 @@
+import argparse
+import sys
+import pandas as pd
+
+from data_load import read_csv
+from data_trans import DataTransformer
+from tVAE import TVAE
+
 """
 Main entry point for the restart_mini package.
 
@@ -10,16 +18,8 @@ Usage:
                    [--output synthetic.csv]
                    
 Example:
-    python main.py --data sample.csv --metadata sample_meta.json --discrete col3,col4 --header
+    python __main__.py ../rhc.csv synthetic_output.csv --metadata ../metadata.json --header
 """
-
-import argparse
-import sys
-import pandas as pd
-
-from data_load import read_csv
-from data_trans import DataTransformer
-from tVAE import TVAE
 
 def _parse_args():
     parser = argparse.ArgumentParser(description='CTGAN Command Line Interface')
