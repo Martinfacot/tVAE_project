@@ -1,4 +1,5 @@
 {
+    "METADATA_SPEC_VERSION": "V1",
     "tables": {
         "rhc": {
             "primary_key": "Unnamed: 0",
@@ -196,6 +197,5 @@
             }
         }
     },
-    "relationships": [],
-    "METADATA_SPEC_VERSION": "V1"
+    "relationships": []
 }
