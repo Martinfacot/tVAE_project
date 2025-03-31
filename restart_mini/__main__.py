@@ -2,9 +2,9 @@ import argparse
 import sys
 import pandas as pd
 
-from data_load import read_csv
-from data_trans import DataTransformer
-from tVAE import TVAE
+from .data_load import read_csv  
+from .data_trans import DataTransformer
+from .tVAE import TVAE
 
 """
 Main entry point for the restart_mini package.
@@ -27,7 +27,7 @@ Example:
 """
 
 def _parse_args():
-    parser = argparse.ArgumentParser(description='CTGAN Command Line Interface')
+    parser = argparse.ArgumentParser(description='TVAE Command Line Interface')
     parser.add_argument('-e', '--epochs', default=300, type=int, help='Number of training epochs')
     
     parser.add_argument(
@@ -113,18 +113,18 @@ def main():
     if args.load:
         model = TVAE.load(args.load)
     else:
-        generator_dim = [int(x) for x in args.generator_dim.split(',')]
-        discriminator_dim = [int(x) for x in args.discriminator_dim.split(',')]
+        # Convert strings to tuples of integers for compress_dims and decompress_dims
+        compress_dims = tuple(int(x) for x in args.generator_dim.split(','))
+        decompress_dims = tuple(int(x) for x in args.discriminator_dim.split(','))
+        
         model = TVAE(
             embedding_dim=args.embedding_dim,
-            generator_dim=generator_dim,
-            discriminator_dim=discriminator_dim,
-            generator_lr=args.generator_lr,
-            generator_decay=args.generator_decay,
-            discriminator_lr=args.discriminator_lr,
-            discriminator_decay=args.discriminator_decay,
+            compress_dims=compress_dims,        
+            decompress_dims=decompress_dims,    
+            l2scale=args.generator_decay,       
             batch_size=args.batch_size,
             epochs=args.epochs,
+            verbose=True                        # Added for progress reporting
         )
     model.fit(data, discrete_columns)
 
