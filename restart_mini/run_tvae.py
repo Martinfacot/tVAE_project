@@ -17,7 +17,7 @@ model = TVAE(
     batch_size=500,
     epochs=300,
     verbose=True
-)
+)   # build your own config or change parameters in __main__.py
 
 # Train the model
 model.fit(data, discrete_columns)

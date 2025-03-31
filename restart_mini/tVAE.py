@@ -9,7 +9,7 @@ from torch.optim import Adam
 from torch.utils.data import DataLoader, TensorDataset
 from tqdm import tqdm
 
-from ctgan.data_transformer import DataTransformer
+from .data_trans import DataTransformer
 from ctgan.synthesizers.base import BaseSynthesizer, random_state
 
 
