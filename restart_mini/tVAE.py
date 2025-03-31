@@ -244,3 +244,16 @@ class TVAE(BaseSynthesizer):
         """Set the `device` to be used ('GPU' or 'CPU)."""
         self._device = device
         self.decoder.to(self._device)
+
+    def save(self, path):
+        """Save the model to a file."""
+        import pickle
+        with open(path, 'wb') as f:
+            pickle.dump(self, f)
+
+    @classmethod
+    def load(cls, path):
+        """Load a model from a file."""
+        import pickle
+        with open(path, 'rb') as f:
+            return pickle.load(f)
