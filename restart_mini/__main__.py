@@ -56,26 +56,20 @@ def _parse_args():
     )
 
     parser.add_argument(
-        '--generator_decay', type=float, default=1e-6, help='Weight decay for the generator.'
+        '--compress_dims',
+        type=str,
+        default='128,128',
+        help='Dimension of each encoder layer. Comma separated integers with no whitespaces.',
     )
     parser.add_argument(
-        '--discriminator_decay', type=float, default=0, help='Weight decay for the discriminator.'
+        '--decompress_dims',
+        type=str,
+        default='128,128',
+        help='Dimension of each decoder layer. Comma separated integers with no whitespaces.',
     )
 
     parser.add_argument(
         '--embedding_dim', type=int, default=128, help='Dimension of input z to the generator.'
-    )
-    parser.add_argument(
-        '--generator_dim',
-        type=str,
-        default='256,256',
-        help='Dimension of each generator layer. Comma separated integers with no whitespaces.',
-    )
-    parser.add_argument(
-        '--discriminator_dim',
-        type=str,
-        default='256,256',
-        help='Dimension of each discriminator layer. Comma separated integers with no whitespaces.',
     )
 
     parser.add_argument(
@@ -98,6 +92,10 @@ def _parse_args():
         help='Specify the value of the selected discrete column.',
     )
 
+    parser.add_argument(
+        '--l2scale', type=float, default=1e-5, help='Weight decay for the generator.'
+    )
+
     parser.add_argument('data', help='Path to training data')
     parser.add_argument('output', help='Path of the output file')
 
@@ -114,14 +112,14 @@ def main():
         model = TVAE.load(args.load)
     else:
         # Convert strings to tuples of integers for compress_dims and decompress_dims
-        compress_dims = tuple(int(x) for x in args.generator_dim.split(','))
-        decompress_dims = tuple(int(x) for x in args.discriminator_dim.split(','))
+        compress_dims = tuple(int(x) for x in args.compress_dims.split(','))
+        decompress_dims = tuple(int(x) for x in args.decompress_dims.split(','))
         
         model = TVAE(
             embedding_dim=args.embedding_dim,
             compress_dims=compress_dims,        
             decompress_dims=decompress_dims,    
-            l2scale=args.generator_decay,       
+            l2scale=args.l2scale,       
             batch_size=args.batch_size,
             epochs=args.epochs,
             verbose=True                        # Added for progress reporting
