@@ -10,6 +10,7 @@ import scipy
 
 from rdt.errors import InvalidDataError, TransformerInputError
 from rdt.transformers.base import BaseTransformer
+from .BaseTransformer import BaseTransformer
 from rdt.transformers.null import NullTransformer
 from rdt.transformers.utils import learn_rounding_digits, logit, sigmoid
 
