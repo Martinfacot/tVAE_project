@@ -409,6 +409,19 @@ class ClusterBasedNormalizer(FloatFormatter):
 
         return np.stack(rows, axis=1)  # noqa: PD013
 
+    def get_output_sdtypes(self):
+        """Return the output column names and their data types."""
+        output = {
+            'normalized': 'float',
+            'component': 'categorical'
+        }
+        
+        # Add the is_null column only if it exists in the data -> trying to fix raise ValueError(f"Shape of passed values is {passed}, indices imply {implied}") ValueError: Shape of passed values is (5735, 2), indices imply (5735, 3)
+        if self.null_transformer and self.null_transformer.models_missing_values():
+            output['is_null'] = 'float'
+            
+        return output
+
     def _reverse_transform_helper(self, data):
         normalized = np.clip(data[:, 0], -1, 1)
         means = self._bgm_transformer.means_.reshape([-1])
@@ -439,16 +452,3 @@ class ClusterBasedNormalizer(FloatFormatter):
             recovered_data = np.stack([recovered_data, data[:, -1]], axis=1)  # noqa: PD013
 
         return super()._reverse_transform(recovered_data)
-
-    def get_output_sdtypes(self):
-        """Return the output column names and their data types."""
-        output = {
-            'normalized': 'float',
-            'component': 'categorical'
-        }
-        
-        # Add the is_null column only if it exists in the data -> trying to fix raise ValueError(f"Shape of passed values is {passed}, indices imply {implied}") ValueError: Shape of passed values is (5735, 2), indices imply (5735, 3)
-        if self.null_transformer and self.null_transformer.models_missing_values():
-            output['is_null'] = 'float'
-            
-        return output
