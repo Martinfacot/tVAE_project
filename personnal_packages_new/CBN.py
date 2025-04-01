@@ -13,8 +13,8 @@ from rdt.errors import InvalidDataError, TransformerInputError
 #from rdt.transformers.null import NullTransformer
 from rdt.transformers.utils import learn_rounding_digits, logit, sigmoid
 
-from .BaseTransformer import BaseTransformer
-from .NullTransformer import NullTransformer
+from .BaseTrans import BaseTransformer
+from .NullTrans import NullTransformer
 
 
 EPSILON = np.finfo(np.float32).eps
