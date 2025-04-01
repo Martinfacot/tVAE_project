@@ -23,7 +23,7 @@ Example:
     python __main__.py ../rhc.csv synthetic_output.csv --metadata ../metadata.json
 
     Run the command from your project root directory:
-    python -m restart_mini rhc.csv synthetic_output.csv --metadata metadata.json
+    python3 -m personnal_packages_new rhc.csv synthetic_output.csv --metadata metadata.json
 """
 
 def _parse_args():
