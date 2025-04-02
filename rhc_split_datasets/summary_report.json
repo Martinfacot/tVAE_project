@@ -1,0 +1,91 @@
+{
+    "original_dataset": {
+        "rows": 5735,
+        "columns": 63
+    },
+    "categorical_no_na": {
+        "rows": 195,
+        "columns": 34,
+        "file": "rhc_split_datasets/categorical_no_na.csv"
+    },
+    "categorical_with_na": {
+        "rows": 5735,
+        "columns": 34,
+        "file": "rhc_split_datasets/categorical_with_na.csv",
+        "na_counts": {
+            "cat1": 0,
+            "cat2": 4535,
+            "ca": 0,
+            "death": 0,
+            "cardiohx": 0,
+            "chfhx": 0,
+            "dementhx": 0,
+            "psychhx": 0,
+            "chrpulhx": 0,
+            "renalhx": 0,
+            "liverhx": 0,
+            "gibledhx": 0,
+            "malighx": 0,
+            "immunhx": 0,
+            "transhx": 0,
+            "amihx": 0,
+            "sex": 0,
+            "dth30": 0,
+            "swang1": 0,
+            "dnr1": 0,
+            "ninsclas": 0,
+            "resp": 0,
+            "card": 0,
+            "neuro": 0,
+            "gastr": 0,
+            "renal": 0,
+            "meta": 0,
+            "hema": 0,
+            "seps": 0,
+            "trauma": 0,
+            "ortho": 0,
+            "adld3p": 4296,
+            "race": 0,
+            "income": 0
+        }
+    },
+    "numerical_no_na": {
+        "rows": 1638,
+        "columns": 27,
+        "file": "rhc_split_datasets/numerical_no_na.csv"
+    },
+    "numerical_with_na": {
+        "rows": 5735,
+        "columns": 27,
+        "file": "rhc_split_datasets/numerical_with_na.csv",
+        "na_counts": {
+            "sadmdte": 0,
+            "dschdte": 1,
+            "dthdte": 2013,
+            "lstctdte": 0,
+            "age": 0,
+            "edu": 0,
+            "surv2md1": 0,
+            "das2d3pc": 0,
+            "t3d30": 0,
+            "aps1": 0,
+            "scoma1": 0,
+            "meanbp1": 0,
+            "wblc1": 0,
+            "hrt1": 0,
+            "resp1": 0,
+            "temp1": 0,
+            "pafi1": 0,
+            "alb1": 0,
+            "hema1": 0,
+            "bili1": 0,
+            "crea1": 0,
+            "sod1": 0,
+            "pot1": 0,
+            "paco21": 0,
+            "ph1": 0,
+            "wtkilo1": 0,
+            "urin1": 3028
+        }
+    }
+}

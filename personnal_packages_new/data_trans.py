@@ -190,38 +190,9 @@ class DataTransformer(object):
         return np.concatenate(column_data_list, axis=1).astype(float)
 
     def _inverse_transform_continuous(self, column_transform_info, column_data, sigmas, st):
-        """Transform continuous columns back to their original form."""
         gm = column_transform_info.transform
-        
-        # Get the first two columns of data (normalized value and component indices)
-        # Regardless of how many columns are in column_data, we only need the first two
-        extracted_data = column_data[:, :2]  # Always take just the first 2 columns
-        
-        # For component selection, we need all columns except the first one
-        component_data = column_data[:, 1:]  # All columns from index 1 onward for argmax
-        
-        try:
-            # Try to get output types from the transformer
-            output_sdtypes = list(gm.get_output_sdtypes().keys())
-            
-            # Ensure we have at least 2 column names (normalized and component)
-            if len(output_sdtypes) < 2:
-                output_sdtypes = ['normalized', 'component']
-            
-            # Only use the first 2 column types
-            used_output_sdtypes = output_sdtypes[:2]
-            
-        except AttributeError:
-            # If get_output_sdtypes doesn't exist, use default names
-            used_output_sdtypes = ['normalized', 'component']
-        
-        # Create DataFrame with exactly 2 columns
-        data = pd.DataFrame(extracted_data, columns=used_output_sdtypes).astype(float)
-        
-        # Use component_data for the argmax to include all component dimensions
-        data[used_output_sdtypes[1]] = np.argmax(component_data, axis=1)
-        
-        # Apply noise if specified
+        data = pd.DataFrame(column_data[:, :2], columns=list(gm.get_output_sdtypes())).astype(float)
+        data[data.columns[1]] = np.argmax(column_data[:, 1:], axis=1)
         if sigmas is not None:
             selected_normalized_value = np.random.normal(data.iloc[:, 0], sigmas[st])
             data.iloc[:, 0] = selected_normalized_value
