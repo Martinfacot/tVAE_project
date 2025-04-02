@@ -190,9 +190,25 @@ class DataTransformer(object):
         return np.concatenate(column_data_list, axis=1).astype(float)
 
     def _inverse_transform_continuous(self, column_transform_info, column_data, sigmas, st):
+        """Transform continuous columns back to their original form."""
         gm = column_transform_info.transform
-        data = pd.DataFrame(column_data[:, :2], columns=list(gm.get_output_sdtypes())).astype(float)
-        data[data.columns[1]] = np.argmax(column_data[:, 1:], axis=1)
+        
+        # Get output types and ensure they match the number of columns in column_data
+        output_types = list(gm.get_output_sdtypes().keys())
+        
+        # If there's a mismatch between output_types and actual data
+        if len(output_types) != column_data.shape[1]:
+            # Only use as many types as there are columns
+            output_types = output_types[:column_data.shape[1]]
+        
+        # Create dataframe with only the columns available in the data
+        data = pd.DataFrame(column_data[:, :column_data.shape[1]], columns=output_types).astype(float)
+        
+        # Handle component column - should always be the second column (index 1)
+        if column_data.shape[1] > 1:
+            data[data.columns[1]] = np.argmax(column_data[:, 1:], axis=1)
+        
+        # Apply noise if specified
         if sigmas is not None:
             selected_normalized_value = np.random.normal(data.iloc[:, 0], sigmas[st])
             data.iloc[:, 0] = selected_normalized_value
