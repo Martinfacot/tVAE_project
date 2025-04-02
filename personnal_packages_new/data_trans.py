@@ -5,8 +5,8 @@ from collections import namedtuple
 import numpy as np
 import pandas as pd
 from joblib import Parallel, delayed
-from .ClusterBasedNormalizer import ClusterBasedNormalizer
-from .OneHotEncoder import OneHotEncoder
+from .NumericalTransformer import ClusterBasedNormalizer
+from .CategoricalTransformer import OneHotEncoder
 
 SpanInfo = namedtuple('SpanInfo', ['dim', 'activation_fn'])
 ColumnTransformInfo = namedtuple(
