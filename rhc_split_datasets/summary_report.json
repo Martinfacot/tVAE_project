@@ -6,12 +6,14 @@
     "categorical_no_na": {
         "rows": 195,
         "columns": 34,
-        "file": "rhc_split_datasets/categorical_no_na.csv"
+        "file": "rhc_split_datasets/categorical_no_na.csv",
+        "metadata_file": "rhc_split_datasets/categorical_no_na_metadata.json"
     },
     "categorical_with_na": {
         "rows": 5735,
         "columns": 34,
         "file": "rhc_split_datasets/categorical_with_na.csv",
+        "metadata_file": "rhc_split_datasets/categorical_with_na_metadata.json",
         "na_counts": {
             "cat1": 0,
             "cat2": 4535,
@@ -52,12 +54,14 @@
     "numerical_no_na": {
         "rows": 1638,
         "columns": 27,
-        "file": "rhc_split_datasets/numerical_no_na.csv"
+        "file": "rhc_split_datasets/numerical_no_na.csv",
+        "metadata_file": "rhc_split_datasets/numerical_no_na_metadata.json"
     },
     "numerical_with_na": {
         "rows": 5735,
         "columns": 27,
         "file": "rhc_split_datasets/numerical_with_na.csv",
+        "metadata_file": "rhc_split_datasets/numerical_with_na_metadata.json",
         "na_counts": {
             "sadmdte": 0,
             "dschdte": 1,

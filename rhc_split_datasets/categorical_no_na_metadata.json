@@ -1,0 +1,113 @@
+{
+    "METADATA_SPEC_VERSION": "V1",
+    "tables": {
+        "rhc": {
+            "primary_key": "Unnamed: 0",
+            "columns": {
+                "cat1": {
+                    "sdtype": "categorical"
+                },
+                "cat2": {
+                    "sdtype": "categorical"
+                },
+                "ca": {
+                    "sdtype": "categorical"
+                },
+                "death": {
+                    "sdtype": "categorical"
+                },
+                "cardiohx": {
+                    "sdtype": "categorical"
+                },
+                "chfhx": {
+                    "sdtype": "categorical"
+                },
+                "dementhx": {
+                    "sdtype": "categorical"
+                },
+                "psychhx": {
+                    "sdtype": "categorical"
+                },
+                "chrpulhx": {
+                    "sdtype": "categorical"
+                },
+                "renalhx": {
+                    "sdtype": "categorical"
+                },
+                "liverhx": {
+                    "sdtype": "categorical"
+                },
+                "gibledhx": {
+                    "sdtype": "categorical"
+                },
+                "malighx": {
+                    "sdtype": "categorical"
+                },
+                "immunhx": {
+                    "sdtype": "categorical"
+                },
+                "transhx": {
+                    "sdtype": "categorical"
+                },
+                "amihx": {
+                    "sdtype": "categorical"
+                },
+                "sex": {
+                    "sdtype": "categorical"
+                },
+                "dth30": {
+                    "sdtype": "categorical"
+                },
+                "swang1": {
+                    "sdtype": "categorical"
+                },
+                "dnr1": {
+                    "sdtype": "categorical"
+                },
+                "ninsclas": {
+                    "sdtype": "categorical"
+                },
+                "resp": {
+                    "sdtype": "categorical"
+                },
+                "card": {
+                    "sdtype": "categorical"
+                },
+                "neuro": {
+                    "sdtype": "categorical"
+                },
+                "gastr": {
+                    "sdtype": "categorical"
+                },
+                "renal": {
+                    "sdtype": "categorical"
+                },
+                "meta": {
+                    "sdtype": "categorical"
+                },
+                "hema": {
+                    "sdtype": "categorical"
+                },
+                "seps": {
+                    "sdtype": "categorical"
+                },
+                "trauma": {
+                    "sdtype": "categorical"
+                },
+                "ortho": {
+                    "sdtype": "categorical"
+                },
+                "adld3p": {
+                    "sdtype": "categorical"
+                },
+                "race": {
+                    "sdtype": "categorical"
+                },
+                "income": {
+                    "sdtype": "categorical"
+                }
+            }
+        }
+    },
+    "relationships": []
+}
