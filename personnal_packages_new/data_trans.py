@@ -193,20 +193,33 @@ class DataTransformer(object):
         """Transform continuous columns back to their original form."""
         gm = column_transform_info.transform
         
-        # Get output types and ensure they match the number of columns in column_data
-        output_types = list(gm.get_output_sdtypes().keys())
+        # Get the first two columns of data (normalized value and component indices)
+        # Regardless of how many columns are in column_data, we only need the first two
+        extracted_data = column_data[:, :2]  # Always take just the first 2 columns
         
-        # If there's a mismatch between output_types and actual data
-        if len(output_types) != column_data.shape[1]:
-            # Only use as many types as there are columns
-            output_types = output_types[:column_data.shape[1]]
+        # For component selection, we need all columns except the first one
+        component_data = column_data[:, 1:]  # All columns from index 1 onward for argmax
         
-        # Create dataframe with only the columns available in the data
-        data = pd.DataFrame(column_data[:, :column_data.shape[1]], columns=output_types).astype(float)
+        try:
+            # Try to get output types from the transformer
+            output_sdtypes = list(gm.get_output_sdtypes().keys())
+            
+            # Ensure we have at least 2 column names (normalized and component)
+            if len(output_sdtypes) < 2:
+                output_sdtypes = ['normalized', 'component']
+            
+            # Only use the first 2 column types
+            used_output_sdtypes = output_sdtypes[:2]
+            
+        except AttributeError:
+            # If get_output_sdtypes doesn't exist, use default names
+            used_output_sdtypes = ['normalized', 'component']
         
-        # Handle component column - should always be the second column (index 1)
-        if column_data.shape[1] > 1:
-            data[data.columns[1]] = np.argmax(column_data[:, 1:], axis=1)
+        # Create DataFrame with exactly 2 columns
+        data = pd.DataFrame(extracted_data, columns=used_output_sdtypes).astype(float)
+        
+        # Use component_data for the argmax to include all component dimensions
+        data[used_output_sdtypes[1]] = np.argmax(component_data, axis=1)
         
         # Apply noise if specified
         if sigmas is not None:
