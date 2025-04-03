@@ -1,0 +1,196 @@
+cat1,cat2,ca,death,cardiohx,chfhx,dementhx,psychhx,chrpulhx,renalhx,liverhx,gibledhx,malighx,immunhx,transhx,amihx,sex,dth30,swang1,dnr1,ninsclas,resp,card,neuro,gastr,renal,meta,hema,seps,trauma,ortho,adld3p,race,income
+ARF,MOSF w/Malignancy,Yes,Yes,0,0,0,0,1,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Malignancy,Yes,Yes,0,0,0,0,0,0,0,0,1,1,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,Yes,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Malignancy,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,No,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,Yes,No RHC,No,Private & Medicare,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Female,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Malignancy,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Malignancy,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Female,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Malignancy,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Female,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Malignancy,Yes,Yes,0,0,0,0,1,0,0,0,1,1,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Malignancy,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Female,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,No,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Malignancy,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Female,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Malignancy,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Female,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,No,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Malignancy,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,1,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Female,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Female,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,2.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,No,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Malignancy,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,1.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Malignancy,Yes,Yes,0,0,0,0,0,0,0,0,1,1,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Female,No,No RHC,No,Medicare,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,$25-$50k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Malignancy,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,$11-$25k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Female,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Metastatic,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,No,No,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Medicare,Yes,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+MOSF w/Malignancy,MOSF w/Sepsis,Yes,Yes,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$11-$25k
+ARF,MOSF w/Sepsis,No,Yes,0,0,0,0,0,0,0,0,0,0,0,0,Male,No,No RHC,No,Private,No,No,No,No,No,No,No,No,No,No,0.0,white,Under $11k
+ARF,MOSF w/Sepsis,Yes,No,0,0,0,0,0,0,0,0,1,0,0,0,Male,No,RHC,No,Private,No,No,No,No,No,No,No,Yes,No,No,0.0,white,$25-$50k
