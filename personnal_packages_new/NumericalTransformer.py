@@ -68,7 +68,7 @@ class FloatFormatter(BaseTransformer):
                   pass whatever data we get through.
     """
 
-    INPUT_SDTYPE = 'continuous'
+    INPUT_SDTYPE = 'numerical'
     null_transformer = None
     missing_value_replacement = None
     _dtype = None
