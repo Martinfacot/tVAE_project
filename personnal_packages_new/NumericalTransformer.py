@@ -9,12 +9,10 @@ import pandas as pd
 import scipy
 
 from rdt.errors import InvalidDataError, TransformerInputError
-#from rdt.transformers.base import BaseTransformer
-#from rdt.transformers.null import NullTransformer
 from rdt.transformers.utils import learn_rounding_digits, logit, sigmoid
 
-from .BaseTrans import BaseTransformer
-from .NullTrans import NullTransformer
+from .BaseTrans import BaseTransformer #from rdt.transformers.base import BaseTransformer
+from .NullTrans import NullTransformer #from rdt.transformers.null import NullTransformer
 
 
 EPSILON = np.finfo(np.float32).eps
@@ -70,7 +68,7 @@ class FloatFormatter(BaseTransformer):
                   pass whatever data we get through.
     """
 
-    INPUT_SDTYPE = 'numerical'
+    INPUT_SDTYPE = 'continuous'
     null_transformer = None
     missing_value_replacement = None
     _dtype = None
@@ -408,19 +406,6 @@ class ClusterBasedNormalizer(FloatFormatter):
             rows.append(model_missing_values)
 
         return np.stack(rows, axis=1)  # noqa: PD013
-
-    def get_output_sdtypes(self):
-        """Return the output column names and their data types."""
-        output = {
-            'normalized': 'float',
-            'component': 'categorical'
-        }
-        
-        # Add the is_null column only if it exists in the data -> trying to fix raise ValueError(f"Shape of passed values is {passed}, indices imply {implied}") ValueError: Shape of passed values is (5735, 2), indices imply (5735, 3)
-        if self.null_transformer and self.null_transformer.models_missing_values():
-            output['is_null'] = 'float'
-            
-        return output
 
     def _reverse_transform_helper(self, data):
         normalized = np.clip(data[:, 0], -1, 1)

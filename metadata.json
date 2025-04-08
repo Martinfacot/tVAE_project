@@ -17,16 +17,16 @@
                     "sdtype": "categorical"
                 },
                 "sadmdte": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "dschdte": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "dthdte": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "lstctdte": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "death": {
                     "sdtype": "categorical"
@@ -68,79 +68,79 @@
                     "sdtype": "categorical"
                 },
                 "age": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "sex": {
                     "sdtype": "categorical"
                 },
                 "edu": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "surv2md1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "das2d3pc": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "t3d30": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "dth30": {
                     "sdtype": "categorical"
                 },
                 "aps1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "scoma1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "meanbp1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "wblc1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "hrt1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "resp1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "temp1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "pafi1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "alb1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "hema1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "bili1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "crea1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "sod1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "pot1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "paco21": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "ph1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "swang1": {
                     "sdtype": "categorical"
                 },
                 "wtkilo1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "dnr1": {
                     "sdtype": "categorical"
@@ -182,13 +182,17 @@
                     "sdtype": "categorical"
                 },
                 "urin1": {
-                    "sdtype": "numerical"
+                    "sdtype": "conitinuous"
                 },
                 "race": {
                     "sdtype": "categorical"
                 },
                 "income": {
                     "sdtype": "categorical"
+                },
+                "ptid": {
+                    "sdtype": "unknown",
+                    "pii": true
                 }
             }
         }

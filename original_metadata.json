@@ -1,0 +1,196 @@
+{
+    "columns": {
+        "Unnamed: 0": {
+            "sdtype": "id"
+        },
+        "cat1": {
+            "sdtype": "categorical"
+        },
+        "cat2": {
+            "sdtype": "categorical"
+        },
+        "ca": {
+            "sdtype": "categorical"
+        },
+        "sadmdte": {
+            "sdtype": "numerical"
+        },
+        "dschdte": {
+            "sdtype": "numerical"
+        },
+        "dthdte": {
+            "sdtype": "numerical"
+        },
+        "lstctdte": {
+            "sdtype": "numerical"
+        },
+        "death": {
+            "sdtype": "categorical"
+        },
+        "cardiohx": {
+            "sdtype": "categorical"
+        },
+        "chfhx": {
+            "sdtype": "categorical"
+        },
+        "dementhx": {
+            "sdtype": "categorical"
+        },
+        "psychhx": {
+            "sdtype": "categorical"
+        },
+        "chrpulhx": {
+            "sdtype": "categorical"
+        },
+        "renalhx": {
+            "sdtype": "categorical"
+        },
+        "liverhx": {
+            "sdtype": "categorical"
+        },
+        "gibledhx": {
+            "sdtype": "categorical"
+        },
+        "malighx": {
+            "sdtype": "categorical"
+        },
+        "immunhx": {
+            "sdtype": "categorical"
+        },
+        "transhx": {
+            "sdtype": "categorical"
+        },
+        "amihx": {
+            "sdtype": "categorical"
+        },
+        "age": {
+            "sdtype": "numerical"
+        },
+        "sex": {
+            "sdtype": "categorical"
+        },
+        "edu": {
+            "sdtype": "numerical"
+        },
+        "surv2md1": {
+            "sdtype": "numerical"
+        },
+        "das2d3pc": {
+            "sdtype": "numerical"
+        },
+        "t3d30": {
+            "sdtype": "numerical"
+        },
+        "dth30": {
+            "sdtype": "categorical"
+        },
+        "aps1": {
+            "sdtype": "numerical"
+        },
+        "scoma1": {
+            "sdtype": "numerical"
+        },
+        "meanbp1": {
+            "sdtype": "numerical"
+        },
+        "wblc1": {
+            "sdtype": "numerical"
+        },
+        "hrt1": {
+            "sdtype": "numerical"
+        },
+        "resp1": {
+            "sdtype": "numerical"
+        },
+        "temp1": {
+            "sdtype": "numerical"
+        },
+        "pafi1": {
+            "sdtype": "numerical"
+        },
+        "alb1": {
+            "sdtype": "numerical"
+        },
+        "hema1": {
+            "sdtype": "numerical"
+        },
+        "bili1": {
+            "sdtype": "numerical"
+        },
+        "crea1": {
+            "sdtype": "numerical"
+        },
+        "sod1": {
+            "sdtype": "numerical"
+        },
+        "pot1": {
+            "sdtype": "numerical"
+        },
+        "paco21": {
+            "sdtype": "numerical"
+        },
+        "ph1": {
+            "sdtype": "numerical"
+        },
+        "swang1": {
+            "sdtype": "categorical"
+        },
+        "wtkilo1": {
+            "sdtype": "numerical"
+        },
+        "dnr1": {
+            "sdtype": "categorical"
+        },
+        "ninsclas": {
+            "sdtype": "categorical"
+        },
+        "resp": {
+            "sdtype": "categorical"
+        },
+        "card": {
+            "sdtype": "categorical"
+        },
+        "neuro": {
+            "sdtype": "categorical"
+        },
+        "gastr": {
+            "sdtype": "categorical"
+        },
+        "renal": {
+            "sdtype": "categorical"
+        },
+        "meta": {
+            "sdtype": "categorical"
+        },
+        "hema": {
+            "sdtype": "categorical"
+        },
+        "seps": {
+            "sdtype": "categorical"
+        },
+        "trauma": {
+            "sdtype": "categorical"
+        },
+        "ortho": {
+            "sdtype": "categorical"
+        },
+        "adld3p": {
+            "sdtype": "categorical"
+        },
+        "urin1": {
+            "sdtype": "numerical"
+        },
+        "race": {
+            "sdtype": "categorical"
+        },
+        "income": {
+            "sdtype": "categorical"
+        },
+        "ptid": {
+            "sdtype": "unknown",
+            "pii": true
+        }
+    },
+    "METADATA_SPEC_VERSION": "SINGLE_TABLE_V1",
+    "primary_key": "Unnamed: 0"
+}
