@@ -86,4 +86,6 @@ def read_csv(csv_filename, meta_filename=None, header=True, discrete=None):
     else:
         discrete_columns = []
 
+    print(f"Found {len(discrete_columns)} discrete columns from metadata")
+
     return data, discrete_columns

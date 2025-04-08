@@ -3,194 +3,256 @@
     "tables": {
         "patients": {
             "primary_key": "ptid",
-            "columns": {
-                "cat1": {
-                    "sdtype": "categorical"
+            "columns": [
+                {
+                    "name": "cat1",
+                    "type": "categorical"
                 },
-                "cat2": {
-                    "sdtype": "categorical"
+                {
+                    "name": "cat2",
+                    "type": "categorical"
                 },
-                "ca": {
-                    "sdtype": "categorical"
+                {
+                    "name": "ca",
+                    "type": "categorical"
                 },
-                "sadmdte": {
-                    "sdtype": "numerical"
+                {
+                    "name": "sadmdte",
+                    "type": "numerical"
                 },
-                "dschdte": {
-                    "sdtype": "numerical"
+                {
+                    "name": "dschdte",
+                    "type": "numerical"
                 },
-                "dthdte": {
-                    "sdtype": "numerical"
+                {
+                    "name": "dthdte",
+                    "type": "numerical"
                 },
-                "lstctdte": {
-                    "sdtype": "numerical"
+                {
+                    "name": "lstctdte",
+                    "type": "numerical"
                 },
-                "death": {
-                    "sdtype": "categorical"
+                {
+                    "name": "death",
+                    "type": "categorical"
                 },
-                "cardiohx": {
-                    "sdtype": "categorical"
+                {
+                    "name": "cardiohx",
+                    "type": "categorical"
                 },
-                "chfhx": {
-                    "sdtype": "categorical"
+                {
+                    "name": "chfhx",
+                    "type": "categorical"
                 },
-                "dementhx": {
-                    "sdtype": "categorical"
+                {
+                    "name": "dementhx",
+                    "type": "categorical"
                 },
-                "psychhx": {
-                    "sdtype": "categorical"
+                {
+                    "name": "psychhx",
+                    "type": "categorical"
                 },
-                "chrpulhx": {
-                    "sdtype": "categorical"
+                {
+                    "name": "chrpulhx",
+                    "type": "categorical"
                 },
-                "renalhx": {
-                    "sdtype": "categorical"
+                {
+                    "name": "renalhx",
+                    "type": "categorical"
                 },
-                "liverhx": {
-                    "sdtype": "categorical"
+                {
+                    "name": "liverhx",
+                    "type": "categorical"
                 },
-                "gibledhx": {
-                    "sdtype": "categorical"
+                {
+                    "name": "gibledhx",
+                    "type": "categorical"
                 },
-                "malighx": {
-                    "sdtype": "categorical"
+                {
+                    "name": "malighx",
+                    "type": "categorical"
                 },
-                "immunhx": {
-                    "sdtype": "categorical"
+                {
+                    "name": "immunhx",
+                    "type": "categorical"
                 },
-                "transhx": {
-                    "sdtype": "categorical"
+                {
+                    "name": "transhx",
+                    "type": "categorical"
                 },
-                "amihx": {
-                    "sdtype": "categorical"
+                {
+                    "name": "amihx",
+                    "type": "categorical"
                 },
-                "age": {
-                    "sdtype": "numerical"
+                {
+                    "name": "age",
+                    "type": "numerical"
                 },
-                "sex": {
-                    "sdtype": "categorical"
+                {
+                    "name": "sex",
+                    "type": "categorical"
                 },
-                "edu": {
-                    "sdtype": "numerical"
+                {
+                    "name": "edu",
+                    "type": "numerical"
                 },
-                "surv2md1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "surv2md1",
+                    "type": "numerical"
                 },
-                "das2d3pc": {
-                    "sdtype": "numerical"
+                {
+                    "name": "das2d3pc",
+                    "type": "numerical"
                 },
-                "t3d30": {
-                    "sdtype": "numerical"
+                {
+                    "name": "t3d30",
+                    "type": "numerical"
                 },
-                "dth30": {
-                    "sdtype": "categorical"
+                {
+                    "name": "dth30",
+                    "type": "categorical"
                 },
-                "aps1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "aps1",
+                    "type": "numerical"
                 },
-                "scoma1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "scoma1",
+                    "type": "numerical"
                 },
-                "meanbp1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "meanbp1",
+                    "type": "numerical"
                 },
-                "wblc1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "wblc1",
+                    "type": "numerical"
                 },
-                "hrt1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "hrt1",
+                    "type": "numerical"
                 },
-                "resp1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "resp1",
+                    "type": "numerical"
                 },
-                "temp1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "temp1",
+                    "type": "numerical"
                 },
-                "pafi1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "pafi1",
+                    "type": "numerical"
                 },
-                "alb1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "alb1",
+                    "type": "numerical"
                 },
-                "hema1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "hema1",
+                    "type": "numerical"
                 },
-                "bili1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "bili1",
+                    "type": "numerical"
                 },
-                "crea1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "crea1",
+                    "type": "numerical"
                 },
-                "sod1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "sod1",
+                    "type": "numerical"
                 },
-                "pot1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "pot1",
+                    "type": "numerical"
                 },
-                "paco21": {
-                    "sdtype": "numerical"
+                {
+                    "name": "paco21",
+                    "type": "numerical"
                 },
-                "ph1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "ph1",
+                    "type": "numerical"
                 },
-                "swang1": {
-                    "sdtype": "categorical"
+                {
+                    "name": "swang1",
+                    "type": "categorical"
                 },
-                "wtkilo1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "wtkilo1",
+                    "type": "numerical"
                 },
-                "dnr1": {
-                    "sdtype": "categorical"
+                {
+                    "name": "dnr1",
+                    "type": "categorical"
                 },
-                "ninsclas": {
-                    "sdtype": "categorical"
+                {
+                    "name": "ninsclas",
+                    "type": "categorical"
                 },
-                "resp": {
-                    "sdtype": "categorical"
+                {
+                    "name": "resp",
+                    "type": "categorical"
                 },
-                "card": {
-                    "sdtype": "categorical"
+                {
+                    "name": "card",
+                    "type": "categorical"
                 },
-                "neuro": {
-                    "sdtype": "categorical"
+                {
+                    "name": "neuro",
+                    "type": "categorical"
                 },
-                "gastr": {
-                    "sdtype": "categorical"
+                {
+                    "name": "gastr",
+                    "type": "categorical"
                 },
-                "renal": {
-                    "sdtype": "categorical"
+                {
+                    "name": "renal",
+                    "type": "categorical"
                 },
-                "meta": {
-                    "sdtype": "categorical"
+                {
+                    "name": "meta",
+                    "type": "categorical"
                 },
-                "hema": {
-                    "sdtype": "categorical"
+                {
+                    "name": "hema",
+                    "type": "categorical"
                 },
-                "seps": {
-                    "sdtype": "categorical"
+                {
+                    "name": "seps",
+                    "type": "categorical"
                 },
-                "trauma": {
-                    "sdtype": "categorical"
+                {
+                    "name": "trauma",
+                    "type": "categorical"
                 },
-                "ortho": {
-                    "sdtype": "categorical"
+                {
+                    "name": "ortho",
+                    "type": "categorical"
                 },
-                "adld3p": {
-                    "sdtype": "categorical"
+                {
+                    "name": "adld3p",
+                    "type": "categorical"
                 },
-                "urin1": {
-                    "sdtype": "numerical"
+                {
+                    "name": "urin1",
+                    "type": "numerical"
                 },
-                "race": {
-                    "sdtype": "categorical"
+                {
+                    "name": "race",
+                    "type": "categorical"
                 },
-                "income": {
-                    "sdtype": "categorical"
+                {
+                    "name": "income",
+                    "type": "categorical"
                 },
-                "ptid": {
-                    "sdtype": "id"
+                {
+                    "name": "ptid",
+                    "type": "id"
                 }
-            }
+            ]
         }
     },
     "relationships": []
