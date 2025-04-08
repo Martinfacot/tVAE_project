@@ -75,7 +75,7 @@ def read_csv(csv_filename, meta_filename=None, header=True, discrete=None):
             metadata = json.load(meta_file)
 
         discrete_columns = [
-            column['name'] for column in metadata['columns'] if column['type'] != 'continuous'
+            column['name'] for column in metadata['columns'] if column['type'] != 'numerical'
         ]
 
     elif discrete:
