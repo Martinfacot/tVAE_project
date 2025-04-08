@@ -1,8 +1,6 @@
 {
+    "METADATA_SPEC_VERSION": "SINGLE_TABLE_V1",
     "columns": {
-        "Unnamed: 0": {
-            "sdtype": "id"
-        },
         "cat1": {
             "sdtype": "categorical"
         },
@@ -187,10 +185,8 @@
             "sdtype": "categorical"
         },
         "ptid": {
-            "sdtype": "unknown",
-            "pii": true
+            "sdtype": "id"
         }
     },
-    "METADATA_SPEC_VERSION": "SINGLE_TABLE_V1",
-    "primary_key": "Unnamed: 0"
+    "primary_key": "ptid"
 }
