@@ -189,10 +189,6 @@
                 },
                 "income": {
                     "sdtype": "categorical"
-                },
-                "ptid": {
-                    "sdtype": "unknown",
-                    "pii": true
                 }
             }
         }
