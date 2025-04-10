@@ -89,3 +89,36 @@ def read_csv(csv_filename, meta_filename=None, header=True, discrete=None):
     print(f"Found {len(discrete_columns)} discrete columns from metadata")
 
     return data, discrete_columns
+
+#def read_csv(csv_filename, meta_filename=None, header=True, discrete=None):
+#    """Read a CSV file and identify discrete columns.
+#    
+#    Args:
+#        csv_filename (str): Path to the CSV file.
+#        meta_filename (str, optional): Path to the metadata file.
+#        header (bool): Whether the CSV file has a header row.
+#        discrete (str, optional): Comma-separated list of discrete column names or indices.
+#        
+#    Returns:
+#        tuple: (DataFrame with loaded data, list of discrete column names)
+#    """
+#    data = pd.read_csv(csv_filename, header='infer' if header else None)
+#    discrete_columns = []
+#
+#    if meta_filename:
+#        with open(meta_filename) as meta_file:
+#            metadata = json.load(meta_file)
+#        
+#        # Check metadata format and extract discrete columns
+#        if 'METADATA_SPEC_VERSION' in metadata and 'tables' in metadata:
+#            # Handle V1 format with tables
+#            # Get the first table if there are multiple
+#            table_name = list(metadata['tables'].keys())[0]
+#            table_metadata = metadata['tables'][table_name]
+#            
+#            if 'columns' in table_metadata:
+#                discrete_columns = [
+#                    column['name'] for column in table_metadata['columns'] 
+#                    if column.get('type') != 'numerical'
+#                ]
+#    return data, discrete_columns
