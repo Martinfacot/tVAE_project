@@ -68,7 +68,7 @@ class FloatFormatter(BaseTransformer):
                   pass whatever data we get through.
     """
 
-    INPUT_SDTYPE = 'numerical'
+    INPUT_SDTYPE = 'continuous'
     null_transformer = None
     missing_value_replacement = None
     _dtype = None
@@ -305,7 +305,7 @@ class ClusterBasedNormalizer(FloatFormatter):
         enforce_min_max_values=False,
         max_clusters=10,
         weight_threshold=0.005,
-        missing_value_generation='random',
+        missing_value_generation='from_column',
     ):
         # Using missing_value_replacement='mean' as the default instead of random
         # as this may lead to different outcomes in certain synthesizers
