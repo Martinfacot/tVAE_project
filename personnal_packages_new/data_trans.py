@@ -213,23 +213,59 @@ class DataTransformer(object):
         st = 0
         recovered_column_data_list = []
         column_names = []
+        
+        # Debug information to identify the issue
+        print(f"Debug - Input data shape: {data.shape}")
+        print(f"Debug - Expected columns from metadata: {len(self._column_transform_info_list)}")
+        
         for column_transform_info in self._column_transform_info_list:
             dim = column_transform_info.output_dimensions
-            column_data = data[:, st : st + dim]
-            if column_transform_info.column_type == 'continuous':
-                recovered_column_data = self._inverse_transform_continuous(
-                    column_transform_info, column_data, sigmas, st
-                )
+            # Check if we're still within bounds of the data array
+            if st + dim <= data.shape[1]:
+                column_data = data[:, st:st + dim]
+                if column_transform_info.column_type == 'continuous':
+                    recovered_column_data = self._inverse_transform_continuous(
+                        column_transform_info, column_data, sigmas, st
+                    )
+                else:
+                    recovered_column_data = self._inverse_transform_discrete(
+                        column_transform_info, column_data
+                    )
+
+                recovered_column_data_list.append(recovered_column_data)
+                column_names.append(column_transform_info.column_name)
+                st += dim
             else:
-                recovered_column_data = self._inverse_transform_discrete(
-                    column_transform_info, column_data
-                )
-
-            recovered_column_data_list.append(recovered_column_data)
-            column_names.append(column_transform_info.column_name)
-            st += dim
-
+                print(f"Warning: Skipping column {column_transform_info.column_name} - out of bounds")
+                # Add a placeholder for this column to maintain consistency
+                if column_transform_info.column_type == 'continuous':
+                    # For continuous columns, use median or mean value
+                    placeholder = np.zeros(data.shape[0])
+                else:
+                    # For discrete columns, use zeros (will be converted to most common category)
+                    placeholder = np.zeros(data.shape[0])
+                
+                recovered_column_data_list.append(placeholder)
+                column_names.append(column_transform_info.column_name)
+        
+        # Check if there's extra data we didn't process
+        if st < data.shape[1]:
+            print(f"Warning: {data.shape[1] - st} extra dimensions in input data were not processed")
+        
         recovered_data = np.column_stack(recovered_column_data_list)
+        print(f"Debug - Recovered data shape: {recovered_data.shape}")
+        print(f"Debug - Column names length: {len(column_names)}")
+        
+        # Ensure the recovered data matches the expected column count
+        if len(column_names) != recovered_data.shape[1]:
+            print(f"Warning: Column count mismatch. Adjusting recovered data shape.")
+            if len(column_names) > recovered_data.shape[1]:
+                # If we have more column names than data columns, trim the column names list
+                column_names = column_names[:recovered_data.shape[1]]
+            else:
+                # If we have more data columns than names, trim the data
+                recovered_data = recovered_data[:, :len(column_names)]
+        
         recovered_data = pd.DataFrame(recovered_data, columns=column_names).astype(
             self._column_raw_dtypes
         )

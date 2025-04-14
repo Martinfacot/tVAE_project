@@ -1,10 +1,15 @@
 import os
+import sys
 import pandas as pd
-from restart_mini import read_csv, TVAE
+
+# Add the parent directory to sys.path so Python can find the module
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from personnal_packages_new import read_csv, TVAE
 
 # Paths to the data files
 data_path = 'rhc.csv'  
-metadata_path = 'metadata.json'
+metadata_path = 'light_metadata.json'
 
 # Load the data
 data, discrete_columns = read_csv(data_path, metadata_path, header=True)
