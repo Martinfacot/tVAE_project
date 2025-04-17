@@ -206,6 +206,37 @@ class DataTransformer(object):
 
         return gm.reverse_transform(data)
 
+    def fixed_inverse_transform_continuous(self, column_transform_info, column_data, sigmas, st):
+        """Fixed version of _inverse_transform_continuous that handles missing or incorrect output_sdtypes.
+        
+        This method safely handles cases where gm.get_output_sdtypes() doesn't return expected columns
+        by using fallback column names when necessary.
+        """
+        gm = column_transform_info.transform
+        
+        # Try to get column names safely
+        try:
+            output_columns = list(gm.get_output_sdtypes())
+            if len(output_columns) >= 2:
+                # Use available columns
+                data = pd.DataFrame(column_data[:, :2], columns=output_columns[:2]).astype(float)
+            else:
+                # Generate generic names
+                column_name = column_transform_info.column_name
+                data = pd.DataFrame(column_data[:, :2], columns=[f'{column_name}.normalized', f'{column_name}.component']).astype(float)
+        except Exception as e:
+            # Fallback to generic names if anything goes wrong
+            column_name = column_transform_info.column_name
+            data = pd.DataFrame(column_data[:, :2], columns=[f'{column_name}.normalized', f'{column_name}.component']).astype(float)
+        
+        # Continue with original code
+        data[data.columns[1]] = np.argmax(column_data[:, 1:], axis=1)
+        if sigmas is not None:
+            selected_normalized_value = np.random.normal(data.iloc[:, 0], sigmas[st])
+            data.iloc[:, 0] = selected_normalized_value
+    
+        return gm.reverse_transform(data)
+
     def _inverse_transform_discrete(self, column_transform_info, column_data):
         ohe = column_transform_info.transform
         data = pd.DataFrame(column_data, columns=list(ohe.get_output_sdtypes()))
