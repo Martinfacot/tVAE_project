@@ -5,6 +5,7 @@ from .BaseTrans import BaseTransformer
 from .CategoricalTransformer import OneHotEncoder
 from .NumericalTransformer import ClusterBasedNormalizer, FloatFormatter
 from .tVAE import TVAE, Encoder, Decoder
+from .Hyper_transformer import HyperTransformer
 
 __all__ = [
     "ClusterBasedNormalizer",
@@ -19,4 +20,5 @@ __all__ = [
     "TVAE",
     "Encoder",
     "Decoder",
+    "HyperTransformer",
 ]
