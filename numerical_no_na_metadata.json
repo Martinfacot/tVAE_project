@@ -1,92 +1,112 @@
 {
-    "METADATA_SPEC_VERSION": "V1",
-    "tables": {
-        "rhc": {
-            "primary_key": "Unnamed: 0",
-            "columns": {
-                "sadmdte": {
-                    "sdtype": "numerical"
-                },
-                "dschdte": {
-                    "sdtype": "numerical"
-                },
-                "dthdte": {
-                    "sdtype": "numerical"
-                },
-                "lstctdte": {
-                    "sdtype": "numerical"
-                },
-                "age": {
-                    "sdtype": "numerical"
-                },
-                "edu": {
-                    "sdtype": "numerical"
-                },
-                "surv2md1": {
-                    "sdtype": "numerical"
-                },
-                "das2d3pc": {
-                    "sdtype": "numerical"
-                },
-                "t3d30": {
-                    "sdtype": "numerical"
-                },
-                "aps1": {
-                    "sdtype": "numerical"
-                },
-                "scoma1": {
-                    "sdtype": "numerical"
-                },
-                "meanbp1": {
-                    "sdtype": "numerical"
-                },
-                "wblc1": {
-                    "sdtype": "numerical"
-                },
-                "hrt1": {
-                    "sdtype": "numerical"
-                },
-                "resp1": {
-                    "sdtype": "numerical"
-                },
-                "temp1": {
-                    "sdtype": "numerical"
-                },
-                "pafi1": {
-                    "sdtype": "numerical"
-                },
-                "alb1": {
-                    "sdtype": "numerical"
-                },
-                "hema1": {
-                    "sdtype": "numerical"
-                },
-                "bili1": {
-                    "sdtype": "numerical"
-                },
-                "crea1": {
-                    "sdtype": "numerical"
-                },
-                "sod1": {
-                    "sdtype": "numerical"
-                },
-                "pot1": {
-                    "sdtype": "numerical"
-                },
-                "paco21": {
-                    "sdtype": "numerical"
-                },
-                "ph1": {
-                    "sdtype": "numerical"
-                },
-                "wtkilo1": {
-                    "sdtype": "numerical"
-                },
-                "urin1": {
-                    "sdtype": "numerical"
-                }
-            }
+    "columns": [
+        {
+            "name": "sadmdte",
+            "type": "continuous"
+        },
+        {
+            "name": "dschdte",
+            "type": "continuous"
+        },
+        {
+            "name": "dthdte",
+            "type": "continuous"
+        },
+        {
+            "name": "lstctdte",
+            "type": "continuous"
+        },
+        {
+            "name": "age",
+            "type": "continuous"
+        },
+        {
+            "name": "edu",
+            "type": "continuous"
+        },
+        {
+            "name": "surv2md1",
+            "type": "continuous"
+        },
+        {
+            "name": "das2d3pc",
+            "type": "continuous"
+        },
+        {
+            "name": "t3d30",
+            "type": "continuous"
+        },
+        {
+            "name": "aps1",
+            "type": "continuous"
+        },
+        {
+            "name": "scoma1",
+            "type": "continuous"
+        },
+        {
+            "name": "meanbp1",
+            "type": "continuous"
+        },
+        {
+            "name": "wblc1",
+            "type": "continuous"
+        },
+        {
+            "name": "hrt1",
+            "type": "continuous"
+        },
+        {
+            "name": "resp1",
+            "type": "continuous"
+        },
+        {
+            "name": "temp1",
+            "type": "continuous"
+        },
+        {
+            "name": "pafi1",
+            "type": "continuous"
+        },
+        {
+            "name": "alb1",
+            "type": "continuous"
+        },
+        {
+            "name": "hema1",
+            "type": "continuous"
+        },
+        {
+            "name": "bili1",
+            "type": "continuous"
+        },
+        {
+            "name": "crea1",
+            "type": "continuous"
+        },
+        {
+            "name": "sod1",
+            "type": "continuous"
+        },
+        {
+            "name": "pot1",
+            "type": "continuous"
+        },
+        {
+            "name": "paco21",
+            "type": "continuous"
+        },
+        {
+            "name": "ph1",
+            "type": "continuous"
+        },
+        {
+            "name": "wtkilo1",
+            "type": "continuous"
+        },
+        {
+            "name": "urin1",
+            "type": "continuous"
         }
-    },
-    "relationships": []
+    ]
 }
