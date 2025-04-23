@@ -10,7 +10,7 @@ The implementation focuses on the Right Heart Catheterization (RHC) dataset with
 
 - **Miniaturized tVAE Implementation**: Lightweight version of the tVAE architecture optimized for tabular medical data
 - **Advanced Data Preprocessing**: Specialized handling of categorical and continuous variables
-- **Missing Values Management**: Proper handling of null values using the 'from_column' approach (currently requires complete datasets without missing values or "random" approach")
+- **Missing Values Management**: Proper handling of null values using the 'from_column' approach (currently requires complete datasets without missing values or "random" approach)
 - **Privacy Preservation**: Generated synthetic data that protects patient privacy while maintaining statistical utility (in coming)
 
 ## About the Project
