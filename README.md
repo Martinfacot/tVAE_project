@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project implements a Tabular Variational Autoencoder (tVAE) for generating synthetic healthcare data that preserves the statistical properties and relationships of the original dataset while ensuring privacy. It was developed as part of my External Pharmacy Internship at the CHU (University Hospital) of Strasbourg.
+This project implements a Tabular Variational Autoencoder (tVAE) for generating synthetic healthcare data that preserves the statistical properties and relationships of the original dataset while ensuring privacy based on Synthetic Data Vault (SDV) framework. It was developed as part of my External Pharmacy Internship at the CHU (University Hospital) of Strasbourg.
 
 The implementation focuses on the Right Heart Catheterization (RHC) dataset with an emphasis on data quality, proper handling of missing values, and utility preservation.
 
@@ -10,7 +10,7 @@ The implementation focuses on the Right Heart Catheterization (RHC) dataset with
 
 - **Miniaturized tVAE Implementation**: Lightweight version of the tVAE architecture optimized for tabular medical data
 - **Advanced Data Preprocessing**: Specialized handling of categorical and continuous variables
-- **Missing Values Management**: Proper handling of null values using the 'from_column' approach
+- **Missing Values Management**: Proper handling of null values using the 'from_column' approach (currently requires complete datasets without missing values or "random" approach")
 - **Privacy Preservation**: Generated synthetic data that protects patient privacy while maintaining statistical utility (in coming)
 
 ## About the Project
