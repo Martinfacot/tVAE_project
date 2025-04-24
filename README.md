@@ -1,4 +1,5 @@
 # Synthetic Healthcare Data Generation with tVAE
+![Reparameterized Variational Autoencoder](https://github.com/Martinfacot/tVAE_project/raw/dev/Images/Reparameterized_Variational_Autoencoder.png)
 
 ## Project Overview
 
