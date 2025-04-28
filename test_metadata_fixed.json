@@ -4,7 +4,6 @@
         "rhc": {
             "primary_key": "ptid",
             "columns": {
-                
                 "cat1": {
                     "sdtype": "categorical"
                 },
@@ -189,8 +188,7 @@
                     "sdtype": "categorical"
                 },
                 "ptid": {
-                    "sdtype": "id",
-                    "pii": true
+                    "sdtype": "id"
                 }
             }
         }
