@@ -1,11 +1,11 @@
-"""Wrapper around CTGAN model."""
+"""Wrapper around TVAE model."""
 
 import warnings
 
 import numpy as np
 import pandas as pd
 import plotly.express as px
-from ctgan import CTGAN, TVAE
+from ctgan import TVAE
 from sdmetrics import visualization
 
 from sdv.errors import InvalidDataTypeError, NotFittedError
