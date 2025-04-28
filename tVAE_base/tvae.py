@@ -125,7 +125,7 @@ class TVAE(BaseSynthesizer):
         self.batch_size = batch_size
         self.loss_factor = loss_factor
         self.epochs = epochs
-        self.loss_values = pd.DataFrame(columns=['Epoch', 'Batch', 'Loss'])
+        self.loss_values = pd.DataFrame(columns=['Epoch', 'Reconstruction Loss', 'KLD Loss', 'Total Loss'])
         self.verbose = verbose
 
         if not cuda or not torch.cuda.is_available():
@@ -163,15 +163,18 @@ class TVAE(BaseSynthesizer):
             list(encoder.parameters()) + list(self.decoder.parameters()), weight_decay=self.l2scale
         )
 
-        self.loss_values = pd.DataFrame(columns=['Epoch', 'Batch', 'Loss'])
+        self.loss_values = pd.DataFrame(columns=['Epoch', 'Reconstruction Loss', 'KLD Loss', 'Total Loss'])
         iterator = tqdm(range(self.epochs), disable=(not self.verbose))
         if self.verbose:
-            iterator_description = 'Loss: {loss:.3f}'
-            iterator.set_description(iterator_description.format(loss=0))
+            iterator_description = 'Total Loss: {loss:.3f} | Recon Loss: {loss_1:.3f} | KLD Loss: {loss_2:.3f}'
+            iterator.set_description(iterator_description.format(loss=0, loss_1=0, loss_2=0))
 
         for i in iterator:
-            loss_values = []
-            batch = []
+            epoch_loss_1 = 0.0
+            epoch_loss_2 = 0.0
+            epoch_total_loss = 0.0
+            num_batches = 0
+
             for id_, data in enumerate(loader):
                 optimizerAE.zero_grad()
                 real = data[0].to(self._device)
@@ -193,24 +196,27 @@ class TVAE(BaseSynthesizer):
                 optimizerAE.step()
                 self.decoder.sigma.data.clamp_(0.01, 1.0)
 
-                batch.append(id_)
-                loss_values.append(loss.detach().cpu().item())
+            # Average losses over all batches in the epoch
+            epoch_loss_1 /= num_batches
+            epoch_loss_2 /= num_batches
+            epoch_total_loss /= num_batches
 
+            # Store the average losses for the epoch
             epoch_loss_df = pd.DataFrame({
-                'Epoch': [i] * len(batch),
-                'Batch': batch,
-                'Loss': loss_values,
+                'Epoch': [i],
+                'Reconstruction Loss': [epoch_loss_1],
+                'KLD Loss': [epoch_loss_2],
+                'Total Loss': [epoch_total_loss],
             })
-            if not self.loss_values.empty:
-                self.loss_values = pd.concat([self.loss_values, epoch_loss_df]).reset_index(
-                    drop=True
-                )
-            else:
-                self.loss_values = epoch_loss_df
+            self.loss_values = pd.concat([self.loss_values, epoch_loss_df], ignore_index=True)
 
             if self.verbose:
                 iterator.set_description(
-                    iterator_description.format(loss=loss.detach().cpu().item())
+                    iterator_description.format(
+                        loss=epoch_total_loss,
+                        loss_1=epoch_loss_1,
+                        loss_2=epoch_loss_2
+                    )
                 )
 
     @random_state
@@ -244,3 +250,4 @@ class TVAE(BaseSynthesizer):
         """Set the `device` to be used ('GPU' or 'CPU)."""
         self._device = device
         self.decoder.to(self._device)
+
