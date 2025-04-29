@@ -108,6 +108,7 @@ class TVAE(BaseSynthesizer):
 
     def __init__(
         self,
+        metadata,
         embedding_dim=128, #latent space dimension
         compress_dims=(128, 128), # encoder dimension
         decompress_dims=(128, 128), # decoder dimension
