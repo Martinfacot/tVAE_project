@@ -107,77 +107,75 @@ class LossValuesMixin:
         plt.tight_layout()
         plt.show()
 
-    # def plot_loss_over_epochs(self, loss_values=None):
-    #     """Plot the loss components across epochs.
-    #     
-    #     Args:
-    #         loss_values (pd.DataFrame, optional):
-    #             DataFrame containing loss values. If None, uses the model's loss values.
-    #     """
-    #     if loss_values is None:
-    #         loss_values = self.get_loss_values()
-    #         
-    #     # Check for column names as they might be different
-    #     available_columns = loss_values.columns
-    #     
-    #     # Define possible column names for each loss type
-    #     recon_loss_options = ['Reconstruction Loss', 'reconstruction_loss', 'recon_loss']
-    #     kld_loss_options = ['KLD Loss', 'kld_loss', 'KL Loss', 'kl_loss']
-    #     total_loss_options = ['Loss', 'total_loss']
-    #     
-    #     # Find the actual column names
-    #     recon_loss_col = next((col for col in recon_loss_options if col in available_columns), None)
-    #     kld_loss_col = next((col for col in kld_loss_options if col in available_columns), None)
-    #     total_loss_col = next((col for col in total_loss_options if col in available_columns), None)
-    #     
-    #     # Print column info for debugging if needed
-    #     print(f"Available columns: {available_columns}")
-    #     print(f"Using columns: Reconstruction={recon_loss_col}, KLD={kld_loss_col}, Total={total_loss_col}")
-    #     
-    #     # Check if required columns exist
-    #     if not all([recon_loss_col, kld_loss_col, total_loss_col]):
-    #         raise ValueError(f"Required loss columns not found in DataFrame. Available columns: {available_columns}")
-# 
-    #     # Group by epoch and calculate mean loss components per epoch
-    #     epoch_loss = loss_values.groupby('Epoch')[[recon_loss_col, kld_loss_col, total_loss_col]].mean().reset_index()
-    # 
-    #     plt.figure(figsize=(18, 6))
-    # 
-    #     # Plot mean loss components per epoch
-    #     plt.subplot(1, 3, 1)
-    #     plt.plot(epoch_loss['Epoch'], epoch_loss[recon_loss_col], 'b-', label='Reconstruction Loss')
-    #     plt.plot(epoch_loss['Epoch'], epoch_loss[kld_loss_col], 'r-', label='KL Divergence')
-    #     plt.plot(epoch_loss['Epoch'], epoch_loss[total_loss_col], 'g-', label='Total Loss')
-    #     plt.title('Mean Loss Components per Epoch')
-    #     plt.xlabel('Epoch')
-    #     plt.ylabel('Loss')
-    #     plt.legend()
-    #     plt.grid(True, alpha=0.3)
-    # 
-    #     # Plot batch reconstruction losses across epochs
-    #     plt.subplot(1, 3, 2)
-    #     for epoch in sorted(loss_values['Epoch'].unique()):
-    #         epoch_data = loss_values[loss_values['Epoch'] == epoch]
-    #         plt.scatter([epoch] * len(epoch_data), epoch_data[recon_loss_col], 
-    #                     alpha=0.3, s=10, color='blue')
-    #     plt.title('Reconstruction Loss per Batch')
-    #     plt.xlabel('Epoch')
-    #     plt.ylabel('Loss')
-    #     plt.grid(True, alpha=0.3)
-    # 
-    #     # Plot batch KL divergence losses across epochs
-    #     plt.subplot(1, 3, 3)
-    #     for epoch in sorted(loss_values['Epoch'].unique()):
-    #         epoch_data = loss_values[loss_values['Epoch'] == epoch]
-    #         plt.scatter([epoch] * len(epoch_data), epoch_data[kld_loss_col], 
-    #                     alpha=0.3, s=10, color='red')
-    #     plt.title('KL Divergence per Batch')
-    #     plt.xlabel('Epoch')
-    #     plt.ylabel('Loss')
-    #     plt.grid(True, alpha=0.3)
-    # 
-    #     plt.tight_layout()
-    #     plt.show()
+    def plot_detailed_loss(self, loss_values=None):
+        """Plot the detailed loss components across epochs.
+        
+        This function visualizes the reconstruction loss (loss_1), KLD loss (loss_2),
+        and the total loss across training epochs.
+    
+        Args:
+            loss_values (pd.DataFrame, optional):
+                DataFrame containing loss values. If None, uses the model's loss values.
+        """
+        import matplotlib.pyplot as plt
+    
+        if loss_values is None:
+            loss_values = self.get_loss_values()
+    
+        # Check for required columns
+        required_columns = ['Epoch', 'Loss', 'Reconstruction Loss', 'KLD Loss']
+        available_columns = loss_values.columns
+        for col in required_columns:
+            if col not in available_columns:
+                raise ValueError(f"'{col}' column not found in DataFrame. Available columns: {available_columns}")
+    
+        # Group by epoch and calculate mean losses per epoch
+        epoch_losses = loss_values.groupby('Epoch').agg({
+            'Loss': 'mean',
+            'Reconstruction Loss': 'mean',
+            'KLD Loss': 'mean'
+        }).reset_index()
+    
+        # Create figure with 2 rows and 2 columns
+        fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+        
+        # Plot total loss
+        axes[0, 0].plot(epoch_losses['Epoch'], epoch_losses['Loss'], 'b-', linewidth=2)
+        axes[0, 0].set_title('Total Loss per Epoch')
+        axes[0, 0].set_xlabel('Epoch')
+        axes[0, 0].set_ylabel('Loss')
+        axes[0, 0].grid(True, alpha=0.3)
+        
+        # Plot reconstruction loss
+        axes[0, 1].plot(epoch_losses['Epoch'], epoch_losses['Reconstruction Loss'], 'r-', linewidth=2)
+        axes[0, 1].set_title('Reconstruction Loss per Epoch')
+        axes[0, 1].set_xlabel('Epoch')
+        axes[0, 1].set_ylabel('Loss')
+        axes[0, 1].grid(True, alpha=0.3)
+        
+        # Plot KLD loss
+        axes[1, 0].plot(epoch_losses['Epoch'], epoch_losses['KLD Loss'], 'g-', linewidth=2)
+        axes[1, 0].set_title('KLD Loss per Epoch')
+        axes[1, 0].set_xlabel('Epoch')
+        axes[1, 0].set_ylabel('Loss')
+        axes[1, 0].grid(True, alpha=0.3)
+        
+        # Plot all losses together for comparison
+        axes[1, 1].plot(epoch_losses['Epoch'], epoch_losses['Loss'], 'b-', label='Total Loss', linewidth=2)
+        axes[1, 1].plot(epoch_losses['Epoch'], epoch_losses['Reconstruction Loss'], 'r-', 
+                       label='Reconstruction Loss', linewidth=2)
+        axes[1, 1].plot(epoch_losses['Epoch'], epoch_losses['KLD Loss'], 'g-', label='KLD Loss', linewidth=2)
+        axes[1, 1].set_title('All Losses Comparison')
+        axes[1, 1].set_xlabel('Epoch')
+        axes[1, 1].set_ylabel('Loss')
+        axes[1, 1].legend()
+        axes[1, 1].grid(True, alpha=0.3)
+        
+        plt.tight_layout()
+        plt.show()
+        
+        # Return epoch losses DataFrame for further analysis if needed
+        return epoch_losses
 
 
 class TVAESynthesizer(LossValuesMixin, BaseSingleTableSynthesizer):
