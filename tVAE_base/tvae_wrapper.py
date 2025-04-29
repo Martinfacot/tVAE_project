@@ -4,6 +4,7 @@ import warnings
 
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 import plotly.express as px
 from ctgan import TVAE
 from sdmetrics import visualization
@@ -55,9 +56,86 @@ class LossValuesMixin:
         return self._model.loss_values.copy()
 
 
-    def get_loss_values_plot(self, title='TVAE Training Loss'):
+            
+    def get_loss_values_plot(self, title='TVAE Training Loss', figsize=(12, 8), separate=False):
+        """Generate plots of the training losses.
+        
+        Args:
+            title (str): Plot title
+            figsize (tuple): Figure size as (width, height)
+            separate (bool): If True, creates subplot for each loss type
+            
+        Returns:
+            matplotlib.figure.Figure: The generated plot
+        """
         loss_df = self.get_loss_values()
-
+        
+        # Check available columns and use appropriate ones
+        available_columns = loss_df.columns.tolist()
+        
+        # Print available columns for debugging
+        print(f"Available columns in loss_df: {available_columns}")
+        
+        # Map expected column names to actual column names if they exist
+        column_mapping = {}
+        if 'Reconstruction Loss' in available_columns:
+            column_mapping['recon'] = 'Reconstruction Loss'
+        elif 'loss_1' in available_columns:
+            column_mapping['recon'] = 'loss_1'
+            
+        if 'KLD Loss' in available_columns:
+            column_mapping['kld'] = 'KLD Loss'
+        elif 'loss_2' in available_columns:
+            column_mapping['kld'] = 'loss_2'
+            
+        if 'Total Loss' in available_columns:
+            column_mapping['total'] = 'Total Loss'
+        elif 'loss' in available_columns:
+            column_mapping['total'] = 'loss'
+        
+        # Check if we have the required columns
+        if len(column_mapping) < 3:
+            print("Warning: Not all expected loss columns found. Using available columns.")
+            
+        # Get the x-axis column
+        x_col = 'Epoch' if 'Epoch' in available_columns else available_columns[0]
+        
+        if separate and len(column_mapping) > 0:
+            # Create separate plots for each available loss type
+            num_plots = len(column_mapping)
+            fig, axes = plt.subplots(num_plots, 1, figsize=figsize, sharex=True)
+            if num_plots == 1:
+                axes = [axes]  # Make sure axes is a list for consistent indexing
+            
+            plot_idx = 0
+            for loss_type, col_name in column_mapping.items():
+                axes[plot_idx].plot(loss_df[x_col], loss_df[col_name], 
+                                   color='blue' if loss_type == 'recon' else 
+                                        'red' if loss_type == 'kld' else 'purple')
+                axes[plot_idx].set_title(f"{col_name}")
+                axes[plot_idx].grid(True)
+                if plot_idx == num_plots - 1:
+                    axes[plot_idx].set_xlabel(x_col)
+                plot_idx += 1
+                
+            plt.tight_layout()
+            fig.suptitle(title, fontsize=16, y=1.05)
+        else:
+            # All losses on the same plot
+            fig, ax = plt.subplots(figsize=figsize)
+            
+            for loss_type, col_name in column_mapping.items():
+                color = 'blue' if loss_type == 'recon' else 'red' if loss_type == 'kld' else 'purple'
+                ax.plot(loss_df[x_col], loss_df[col_name], label=col_name, color=color)
+            
+            ax.set_title(title)
+            ax.set_xlabel(x_col)
+            ax.set_ylabel('Loss Value')
+            if column_mapping:
+                ax.legend()
+            ax.grid(True)
+        
+        return fig
 
 
 class TVAESynthesizer(LossValuesMixin, BaseSingleTableSynthesizer):

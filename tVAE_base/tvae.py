@@ -196,28 +196,31 @@ class TVAE(BaseSynthesizer):
                 optimizerAE.step()
                 self.decoder.sigma.data.clamp_(0.01, 1.0)
 
-            # Average losses over all batches in the epoch
-            epoch_loss_1 /= num_batches
-            epoch_loss_2 /= num_batches
-            epoch_total_loss /= num_batches
+                # Accumulate losses
+                epoch_loss_1 += loss_1.item()
+                epoch_loss_2 += loss_2.item()
+                epoch_total_loss += loss.item()
+                num_batches += 1
 
-            # Store the average losses for the epoch
-            epoch_loss_df = pd.DataFrame({
-                'Epoch': [i],
-                'Reconstruction Loss': [epoch_loss_1],
-                'KLD Loss': [epoch_loss_2],
-                'Total Loss': [epoch_total_loss],
-            })
-            self.loss_values = pd.concat([self.loss_values, epoch_loss_df], ignore_index=True)
-
-            if self.verbose:
-                iterator.set_description(
-                    iterator_description.format(
-                        loss=epoch_total_loss,
-                        loss_1=epoch_loss_1,
-                        loss_2=epoch_loss_2
-                    )
-                )
+            # Calculate average losses for the epoch
+            if num_batches > 0:
+                epoch_loss_1 /= num_batches
+                epoch_loss_2 /= num_batches
+                epoch_total_loss /= num_batches
+                
+                # Store epoch-level losses with correct column names
+                epoch_loss_df = pd.DataFrame({
+                    'Epoch': [i],
+                    'Reconstruction Loss': [epoch_loss_1],
+                    'KLD Loss': [epoch_loss_2],
+                    'Total Loss': [epoch_total_loss],
+                })
+                self.loss_values = pd.concat([self.loss_values, epoch_loss_df], ignore_index=True)
+                
+                if self.verbose:
+                    iterator.set_description(iterator_description.format(
+                        loss=epoch_total_loss, loss_1=epoch_loss_1, loss_2=epoch_loss_2
+                    ))
 
     @random_state
     def sample(self, samples):
