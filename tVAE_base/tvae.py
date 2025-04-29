@@ -80,7 +80,7 @@ def _loss_function(recon_x, x, sigmas, mu, logvar, output_info, factor):
     loss = []
     for column_info in output_info:
         for span_info in column_info:
-            if span_info.activation_fn != 'softmax':
+            if span_info.activation_fn != 'softmax': # continuous, MSE
                 ed = st + span_info.dim
                 std = sigmas[st]
                 eq = x[:, st] - torch.tanh(recon_x[:, st])
@@ -88,7 +88,7 @@ def _loss_function(recon_x, x, sigmas, mu, logvar, output_info, factor):
                 loss.append(torch.log(std) * x.size()[0])
                 st = ed
 
-            else:
+            else: # discrete, CrossEntropy
                 ed = st + span_info.dim
                 loss.append(
                     cross_entropy(
@@ -107,9 +107,9 @@ class TVAE(BaseSynthesizer):
 
     def __init__(
         self,
-        embedding_dim=128,
-        compress_dims=(128, 128),
-        decompress_dims=(128, 128),
+        embedding_dim=128, #latent space dimension
+        compress_dims=(128, 128), # encoder dimension
+        decompress_dims=(128, 128), # decoder dimension
         l2scale=1e-5,
         batch_size=500,
         epochs=300,
@@ -150,9 +150,9 @@ class TVAE(BaseSynthesizer):
                 contain the integer indices of the columns. Otherwise, if it is
                 a ``pandas.DataFrame``, this list should contain the column names.
         """
-        self.transformer = DataTransformer()
+        self.transformer = DataTransformer() 
         self.transformer.fit(train_data, discrete_columns)
-        train_data = self.transformer.transform(train_data)
+        train_data = self.transformer.transform(train_data) # preprocess data
         dataset = TensorDataset(torch.from_numpy(train_data.astype('float32')).to(self._device))
         loader = DataLoader(dataset, batch_size=self.batch_size, shuffle=True, drop_last=False)
 
@@ -180,7 +180,7 @@ class TVAE(BaseSynthesizer):
                 real = data[0].to(self._device)
                 mu, std, logvar = encoder(real)
                 eps = torch.randn_like(std)
-                emb = eps * std + mu
+                emb = eps * std + mu # reparameterization trick
                 rec, sigmas = self.decoder(emb)
                 loss_1, loss_2 = _loss_function(
                     rec,
@@ -202,21 +202,21 @@ class TVAE(BaseSynthesizer):
                 epoch_total_loss += loss.item()
                 num_batches += 1
 
-                # Calculate average losses for the epoch
-                if num_batches > 0:
-                    epoch_loss_1 /= num_batches
-                    epoch_loss_2 /= num_batches
-                    epoch_total_loss /= num_batches
+            # Calculate average losses for the epoch
+            if num_batches > 0:
+                epoch_loss_1 /= num_batches
+                epoch_loss_2 /= num_batches
+                epoch_total_loss /= num_batches
             
-                # Record batch losses
-                batch_loss_df = pd.DataFrame({
-                    'Epoch': [i],
-                    'Batch': [id_],
-                    'Loss': [loss.item()],
-                    'Reconstruction Loss': [loss_1.item()],
-                    'KLD Loss': [loss_2.item()],
-                })
-                self.loss_values = pd.concat([self.loss_values, batch_loss_df], ignore_index=True)
+            # Record batch losses
+            batch_loss_df = pd.DataFrame({
+                'Epoch': [i],
+                'Batch': [id_],
+                'Loss': [loss.item()],
+                'Reconstruction Loss': [loss_1.item()],
+                'KLD Loss': [loss_2.item()],
+            })
+            self.loss_values = pd.concat([self.loss_values, batch_loss_df], ignore_index=True)
 
 
 
