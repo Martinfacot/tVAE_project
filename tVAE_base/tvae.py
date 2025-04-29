@@ -202,21 +202,23 @@ class TVAE(BaseSynthesizer):
                 epoch_total_loss += loss.item()
                 num_batches += 1
 
+                # Record batch losses
+                batch_loss_df = pd.DataFrame({
+                    'Epoch': [i],
+                    'Batch': [id_],
+                    'Loss': [loss.item()],
+                    'Reconstruction Loss': [loss_1.item()],
+                    'KLD Loss': [loss_2.item()],
+                })
+                self.loss_values = pd.concat([self.loss_values, batch_loss_df], ignore_index=True)
+
             # Calculate average losses for the epoch
             if num_batches > 0:
                 epoch_loss_1 /= num_batches
                 epoch_loss_2 /= num_batches
                 epoch_total_loss /= num_batches
             
-            # Record batch losses
-            batch_loss_df = pd.DataFrame({
-                'Epoch': [i],
-                'Batch': [id_],
-                'Loss': [loss.item()],
-                'Reconstruction Loss': [loss_1.item()],
-                'KLD Loss': [loss_2.item()],
-            })
-            self.loss_values = pd.concat([self.loss_values, batch_loss_df], ignore_index=True)
+
 
 
 
@@ -240,7 +242,7 @@ class TVAE(BaseSynthesizer):
             std = mean + 1
             noise = torch.normal(mean=mean, std=std).to(self._device)
             fake, sigmas = self.decoder(noise)
-            fake = torch.tanh(fake)
+            fake = torch.tanh(fake) # value range [-1, 1] formating for the inverse transformation
             data.append(fake.detach().cpu().numpy())
 
         data = np.concatenate(data, axis=0)
