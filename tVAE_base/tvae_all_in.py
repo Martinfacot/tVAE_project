@@ -1,4 +1,4 @@
-"""TVAE module."""
+"""TVAE module with integrated loss visualization."""
 
 import numpy as np
 import pandas as pd
@@ -8,6 +8,7 @@ from torch.nn.functional import cross_entropy
 from torch.optim import Adam
 from torch.utils.data import DataLoader, TensorDataset
 from tqdm import tqdm
+import matplotlib.pyplot as plt
 
 from ctgan.data_transformer import DataTransformer
 from ctgan.synthesizers.base import BaseSynthesizer, random_state
@@ -136,6 +137,7 @@ class TVAE(BaseSynthesizer):
             device = 'cuda'
 
         self._device = torch.device(device)
+        self._fitted = False
 
     @random_state
     def fit(self, train_data, discrete_columns=()):
@@ -217,7 +219,7 @@ class TVAE(BaseSynthesizer):
                 epoch_loss_1 /= num_batches
                 epoch_loss_2 /= num_batches
                 epoch_total_loss /= num_batches
-            
+                
             if self.verbose:
                 iterator.set_description(
                     iterator_description.format(
@@ -226,8 +228,6 @@ class TVAE(BaseSynthesizer):
                 )
         
         self._fitted = True
-
-
 
     @random_state
     def sample(self, samples):
@@ -249,7 +249,7 @@ class TVAE(BaseSynthesizer):
             std = mean + 1
             noise = torch.normal(mean=mean, std=std).to(self._device)
             fake, sigmas = self.decoder(noise)
-            fake = torch.tanh(fake) # value range [-1, 1] formating for the inverse transformation
+            fake = torch.tanh(fake)
             data.append(fake.detach().cpu().numpy())
 
         data = np.concatenate(data, axis=0)
@@ -261,3 +261,113 @@ class TVAE(BaseSynthesizer):
         self._device = device
         self.decoder.to(self._device)
 
+    def get_loss_values(self):
+        """Get the loss values from the model.
+
+        Returns:
+            pd.DataFrame:
+                Dataframe containing the loss values per epoch.
+        """
+        if not self._fitted:
+            raise RuntimeError('Loss values are not available yet. Please fit the model first.')
+
+        return self.loss_values.copy()
+
+    def plot_loss_over_epochs(self, loss_values=None):
+        """Plot the loss components across epochs.
+
+        Args:
+            loss_values (pd.DataFrame, optional):
+                DataFrame containing loss values. If None, uses the model's loss values.
+        """
+        if loss_values is None:
+            loss_values = self.get_loss_values()
+
+        # Group by epoch and calculate mean loss per epoch
+        epoch_loss = loss_values.groupby('Epoch')['Loss'].mean().reset_index()
+
+        plt.figure(figsize=(12, 6))
+
+        # Plot mean loss per epoch
+        plt.subplot(1, 2, 1)
+        plt.plot(epoch_loss['Epoch'], epoch_loss['Loss'], 'g-', label='Total Loss')
+        plt.title('Mean Loss per Epoch')
+        plt.xlabel('Epoch')
+        plt.ylabel('Loss')
+        plt.legend()
+        plt.grid(True, alpha=0.3)
+
+        # Plot batch losses across epochs
+        plt.subplot(1, 2, 2)
+        for epoch in sorted(loss_values['Epoch'].unique()):
+            epoch_data = loss_values[loss_values['Epoch'] == epoch]
+            plt.scatter([epoch] * len(epoch_data), epoch_data['Loss'], 
+                        alpha=0.3, s=10, color='blue')
+        plt.title('Loss per Batch')
+        plt.xlabel('Epoch')
+        plt.ylabel('Loss')
+        plt.grid(True, alpha=0.3)
+
+        plt.tight_layout()
+        plt.show()
+
+    def plot_detailed_loss(self, loss_values=None):
+        """Plot the detailed loss components across epochs.
+        
+        This function visualizes the reconstruction loss (loss_1), KLD loss (loss_2),
+        and the total loss across training epochs.
+    
+        Args:
+            loss_values (pd.DataFrame, optional):
+                DataFrame containing loss values. If None, uses the model's loss values.
+        """
+        if loss_values is None:
+            loss_values = self.get_loss_values()
+    
+        # Group by epoch and calculate mean losses per epoch
+        epoch_losses = loss_values.groupby('Epoch').agg({
+            'Loss': 'mean',
+            'Reconstruction Loss': 'mean',
+            'KLD Loss': 'mean'
+        }).reset_index()
+    
+        # Create figure with 2 rows and 2 columns
+        fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+        
+        # Plot total loss
+        axes[0, 0].plot(epoch_losses['Epoch'], epoch_losses['Loss'], 'b-', linewidth=2)
+        axes[0, 0].set_title('Total Loss per Epoch')
+        axes[0, 0].set_xlabel('Epoch')
+        axes[0, 0].set_ylabel('Loss')
+        axes[0, 0].grid(True, alpha=0.3)
+        
+        # Plot reconstruction loss
+        axes[0, 1].plot(epoch_losses['Epoch'], epoch_losses['Reconstruction Loss'], 'r-', linewidth=2)
+        axes[0, 1].set_title('Reconstruction Loss per Epoch')
+        axes[0, 1].set_xlabel('Epoch')
+        axes[0, 1].set_ylabel('Loss')
+        axes[0, 1].grid(True, alpha=0.3)
+        
+        # Plot KLD loss
+        axes[1, 0].plot(epoch_losses['Epoch'], epoch_losses['KLD Loss'], 'g-', linewidth=2)
+        axes[1, 0].set_title('KLD Loss per Epoch')
+        axes[1, 0].set_xlabel('Epoch')
+        axes[1, 0].set_ylabel('Loss')
+        axes[1, 0].grid(True, alpha=0.3)
+        
+        # Plot all losses together for comparison
+        axes[1, 1].plot(epoch_losses['Epoch'], epoch_losses['Loss'], 'b-', label='Total Loss', linewidth=2)
+        axes[1, 1].plot(epoch_losses['Epoch'], epoch_losses['Reconstruction Loss'], 'r-', 
+                       label='Reconstruction Loss', linewidth=2)
+        axes[1, 1].plot(epoch_losses['Epoch'], epoch_losses['KLD Loss'], 'g-', label='KLD Loss', linewidth=2)
+        axes[1, 1].set_title('All Losses Comparison')
+        axes[1, 1].set_xlabel('Epoch')
+        axes[1, 1].set_ylabel('Loss')
+        axes[1, 1].legend()
+        axes[1, 1].grid(True, alpha=0.3)
+        
+        plt.tight_layout()
+        plt.show()
+        
+        # Return epoch losses DataFrame for further analysis if needed
+        return epoch_losses
