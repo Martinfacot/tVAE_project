@@ -125,7 +125,7 @@ class TVAE(BaseSynthesizer):
         self.batch_size = batch_size
         self.loss_factor = loss_factor
         self.epochs = epochs
-        self.loss_values = pd.DataFrame(columns=['Epoch', 'Reconstruction Loss', 'KLD Loss', 'Total Loss'])
+        self.loss_values = pd.DataFrame(columns=['Epoch', 'Batch', 'Loss', 'Reconstruction Loss', 'KLD Loss'])
         self.verbose = verbose
 
         if not cuda or not torch.cuda.is_available():
@@ -163,7 +163,7 @@ class TVAE(BaseSynthesizer):
             list(encoder.parameters()) + list(self.decoder.parameters()), weight_decay=self.l2scale
         )
 
-        self.loss_values = pd.DataFrame(columns=['Epoch', 'Reconstruction Loss', 'KLD Loss', 'Total Loss'])
+        self.loss_values = pd.DataFrame(columns=['Epoch', 'Batch', 'Loss', 'Reconstruction Loss', 'KLD Loss'])
         iterator = tqdm(range(self.epochs), disable=(not self.verbose))
         if self.verbose:
             iterator_description = 'Total Loss: {loss:.3f} | Recon Loss: {loss_1:.3f} | KLD Loss: {loss_2:.3f}'
@@ -202,25 +202,23 @@ class TVAE(BaseSynthesizer):
                 epoch_total_loss += loss.item()
                 num_batches += 1
 
-            # Calculate average losses for the epoch
-            if num_batches > 0:
-                epoch_loss_1 /= num_batches
-                epoch_loss_2 /= num_batches
-                epoch_total_loss /= num_batches
-                
-                # Store epoch-level losses with correct column names
-                epoch_loss_df = pd.DataFrame({
+                # Calculate average losses for the epoch
+                if num_batches > 0:
+                    epoch_loss_1 /= num_batches
+                    epoch_loss_2 /= num_batches
+                    epoch_total_loss /= num_batches
+            
+                # Record batch losses
+                batch_loss_df = pd.DataFrame({
                     'Epoch': [i],
-                    'Reconstruction Loss': [epoch_loss_1],
-                    'KLD Loss': [epoch_loss_2],
-                    'Total Loss': [epoch_total_loss],
+                    'Batch': [id_],
+                    'Loss': [loss.item()],
+                    'Reconstruction Loss': [loss_1.item()],
+                    'KLD Loss': [loss_2.item()],
                 })
-                self.loss_values = pd.concat([self.loss_values, epoch_loss_df], ignore_index=True)
-                
-                if self.verbose:
-                    iterator.set_description(iterator_description.format(
-                        loss=epoch_total_loss, loss_1=epoch_loss_1, loss_2=epoch_loss_2
-                    ))
+                self.loss_values = pd.concat([self.loss_values, batch_loss_df], ignore_index=True)
+
+
 
     @random_state
     def sample(self, samples):
