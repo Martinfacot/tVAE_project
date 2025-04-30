@@ -80,7 +80,7 @@ def _loss_function(recon_x, x, sigmas, mu, logvar, output_info, factor):
     loss = []
     for column_info in output_info:
         for span_info in column_info:
-            if span_info.activation_fn != 'softmax': # continuous, MSE
+            if span_info.activation_fn != 'softmax':
                 ed = st + span_info.dim
                 std = sigmas[st]
                 eq = x[:, st] - torch.tanh(recon_x[:, st])
@@ -88,7 +88,7 @@ def _loss_function(recon_x, x, sigmas, mu, logvar, output_info, factor):
                 loss.append(torch.log(std) * x.size()[0])
                 st = ed
 
-            else: # discrete, CrossEntropy
+            else:
                 ed = st + span_info.dim
                 loss.append(
                     cross_entropy(
@@ -107,9 +107,9 @@ class TVAE(BaseSynthesizer):
 
     def __init__(
         self,
-        embedding_dim=128, #latent space dimension
-        compress_dims=(128, 128), # encoder dimension
-        decompress_dims=(128, 128), # decoder dimension
+        embedding_dim=128,
+        compress_dims=(128, 128),
+        decompress_dims=(128, 128),
         l2scale=1e-5,
         batch_size=500,
         epochs=300,
@@ -125,7 +125,7 @@ class TVAE(BaseSynthesizer):
         self.batch_size = batch_size
         self.loss_factor = loss_factor
         self.epochs = epochs
-        self.loss_values = pd.DataFrame(columns=['Epoch', 'Batch', 'Loss', 'Reconstruction Loss', 'KLD Loss'])
+        self.loss_values = pd.DataFrame(columns=['Epoch', 'Batch', 'Loss'])
         self.verbose = verbose
 
         if not cuda or not torch.cuda.is_available():
@@ -150,9 +150,9 @@ class TVAE(BaseSynthesizer):
                 contain the integer indices of the columns. Otherwise, if it is
                 a ``pandas.DataFrame``, this list should contain the column names.
         """
-        self.transformer = DataTransformer() 
+        self.transformer = DataTransformer()
         self.transformer.fit(train_data, discrete_columns)
-        train_data = self.transformer.transform(train_data) # preprocess data
+        train_data = self.transformer.transform(train_data)
         dataset = TensorDataset(torch.from_numpy(train_data.astype('float32')).to(self._device))
         loader = DataLoader(dataset, batch_size=self.batch_size, shuffle=True, drop_last=False)
 
@@ -163,24 +163,21 @@ class TVAE(BaseSynthesizer):
             list(encoder.parameters()) + list(self.decoder.parameters()), weight_decay=self.l2scale
         )
 
-        self.loss_values = pd.DataFrame(columns=['Epoch', 'Batch', 'Loss', 'Reconstruction Loss', 'KLD Loss'])
+        self.loss_values = pd.DataFrame(columns=['Epoch', 'Batch', 'Loss'])
         iterator = tqdm(range(self.epochs), disable=(not self.verbose))
         if self.verbose:
-            iterator_description = 'Total Loss: {loss:.3f} | Recon Loss: {loss_1:.3f} | KLD Loss: {loss_2:.3f}'
-            iterator.set_description(iterator_description.format(loss=0, loss_1=0, loss_2=0))
+            iterator_description = 'Loss: {loss:.3f}'
+            iterator.set_description(iterator_description.format(loss=0))
 
         for i in iterator:
-            epoch_loss_1 = 0.0
-            epoch_loss_2 = 0.0
-            epoch_total_loss = 0.0
-            num_batches = 0
-
+            loss_values = []
+            batch = []
             for id_, data in enumerate(loader):
                 optimizerAE.zero_grad()
                 real = data[0].to(self._device)
                 mu, std, logvar = encoder(real)
                 eps = torch.randn_like(std)
-                emb = eps * std + mu # reparameterization trick
+                emb = eps * std + mu
                 rec, sigmas = self.decoder(emb)
                 loss_1, loss_2 = _loss_function(
                     rec,
@@ -196,38 +193,25 @@ class TVAE(BaseSynthesizer):
                 optimizerAE.step()
                 self.decoder.sigma.data.clamp_(0.01, 1.0)
 
-                # Accumulate losses
-                epoch_loss_1 += loss_1.item()
-                epoch_loss_2 += loss_2.item()
-                epoch_total_loss += loss.item()
-                num_batches += 1
+                batch.append(id_)
+                loss_values.append(loss.detach().cpu().item())
 
-                # Record batch losses
-                batch_loss_df = pd.DataFrame({
-                    'Epoch': [i],
-                    'Batch': [id_],
-                    'Loss': [loss.item()],
-                    'Reconstruction Loss': [loss_1.item()],
-                    'KLD Loss': [loss_2.item()],
-                })
-                self.loss_values = pd.concat([self.loss_values, batch_loss_df], ignore_index=True)
+            epoch_loss_df = pd.DataFrame({
+                'Epoch': [i] * len(batch),
+                'Batch': batch,
+                'Loss': loss_values,
+            })
+            if not self.loss_values.empty:
+                self.loss_values = pd.concat([self.loss_values, epoch_loss_df]).reset_index(
+                    drop=True
+                )
+            else:
+                self.loss_values = epoch_loss_df
 
-            # Calculate average losses for the epoch
-            if num_batches > 0:
-                epoch_loss_1 /= num_batches
-                epoch_loss_2 /= num_batches
-                epoch_total_loss /= num_batches
-            
             if self.verbose:
                 iterator.set_description(
-                    iterator_description.format(
-                        loss=epoch_total_loss, loss_1=epoch_loss_1, loss_2=epoch_loss_2
-                    )
+                    iterator_description.format(loss=loss.detach().cpu().item())
                 )
-        
-        self._fitted = True
-
-
 
     @random_state
     def sample(self, samples):
@@ -249,7 +233,7 @@ class TVAE(BaseSynthesizer):
             std = mean + 1
             noise = torch.normal(mean=mean, std=std).to(self._device)
             fake, sigmas = self.decoder(noise)
-            fake = torch.tanh(fake) # value range [-1, 1] formating for the inverse transformation
+            fake = torch.tanh(fake)
             data.append(fake.detach().cpu().numpy())
 
         data = np.concatenate(data, axis=0)
@@ -260,4 +244,3 @@ class TVAE(BaseSynthesizer):
         """Set the `device` to be used ('GPU' or 'CPU)."""
         self._device = device
         self.decoder.to(self._device)
-
