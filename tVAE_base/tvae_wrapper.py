@@ -54,8 +54,7 @@ class LossValuesMixin:
             raise NotFittedError(err_msg)
 
         return self._model.loss_values.copy()
-
-
+    
 
 class TVAESynthesizer(LossValuesMixin, BaseSingleTableSynthesizer):
     """Model wrapping ``TVAE`` model.
@@ -169,3 +168,109 @@ class TVAESynthesizer(LossValuesMixin, BaseSingleTableSynthesizer):
             return self._model.sample(num_rows)
 
         raise NotImplementedError("TVAESynthesizer doesn't support conditional sampling.")
+    
+
+    def plot_loss(self, figsize=(10, 6), show_batch_loss=False, smoothing=None, save_path=None):
+        """Plot the loss values over epochs during training.
+        
+        This function visualizes how the loss values evolved during model training,
+        showing the progression of the loss across epochs.
+        
+        Args:
+            figsize (tuple): Figure size as (width, height). Defaults to (10, 6).
+            show_batch_loss (bool): Whether to show individual batch losses. Defaults to False.
+            smoothing (int, optional): If provided, apply moving average smoothing 
+                with the specified window size to the epoch losses.
+            save_path (str, optional): Path to save the plot. If None, the plot is not saved.
+            
+        Returns:
+            matplotlib.figure.Figure: The generated figure.
+            
+        Raises:
+            NotFittedError: If the synthesizer has not been fitted yet.
+        """
+        if not self._fitted:
+            err_msg = 'Loss values are not available yet. Please fit your synthesizer first.'
+            raise NotFittedError(err_msg)
+        
+        # Get the loss values
+        loss_df = self.get_loss_values()
+        
+        # Group by epoch and calculate mean loss
+        epoch_losses = loss_df.groupby('Epoch')['Loss'].mean().reset_index()
+        
+        # Apply smoothing if requested
+        if smoothing and smoothing > 1:
+            epoch_losses['Smoothed_Loss'] = epoch_losses['Loss'].rolling(
+                window=min(smoothing, len(epoch_losses)), 
+                min_periods=1
+            ).mean()
+        
+        # Create the plot
+        fig, ax = plt.subplots(figsize=figsize)
+        
+        # Plot the epoch mean loss
+        ax.plot(
+            epoch_losses['Epoch'], 
+            epoch_losses['Loss'], 
+            'b-', 
+            linewidth=2, 
+            alpha=0.7 if smoothing else 1.0,
+            label='Mean Loss per Epoch'
+        )
+        
+        # Plot smoothed loss if requested
+        if smoothing and smoothing > 1:
+            ax.plot(
+                epoch_losses['Epoch'],
+                epoch_losses['Smoothed_Loss'],
+                'r-',
+                linewidth=2.5,
+                label=f'Smoothed Loss (window={smoothing})'
+            )
+        
+        # Add a scatter plot for individual batch losses if requested
+        if show_batch_loss:
+            # Only show individual points if not too many or downsample
+            max_points = 1000
+            if len(loss_df) > max_points:
+                # Downsample intelligently to avoid too many points
+                sample_ratio = max_points / len(loss_df)
+                batch_loss_sample = loss_df.groupby('Epoch').apply(
+                    lambda x: x.sample(frac=sample_ratio)
+                ).reset_index(drop=True)
+            else:
+                batch_loss_sample = loss_df
+                
+            ax.scatter(
+                batch_loss_sample['Epoch'], 
+                batch_loss_sample['Loss'], 
+                alpha=0.2, 
+                color='blue', 
+                s=10,
+                label='Batch Loss'
+            )
+        
+        # Set labels and title
+        ax.set_xlabel('Epoch', fontsize=12)
+        ax.set_ylabel('Loss', fontsize=12)
+        ax.set_title('TVAE Training Loss', fontsize=14)
+        
+        # Add grid and legend
+        ax.grid(True, linestyle='--', alpha=0.7)
+        ax.legend()
+        
+        # Y-axis formatting for better scale visualization
+        ax.ticklabel_format(axis='y', style='sci', scilimits=(-3, 3))
+        
+        # Set x-axis ticks to be integers
+        ax.xaxis.set_major_locator(plt.MaxNLocator(integer=True))
+        
+        # Tight layout
+        plt.tight_layout()
+        
+        # Save if requested
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        
+        return fig
