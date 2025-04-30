@@ -170,17 +170,14 @@ class TVAESynthesizer(LossValuesMixin, BaseSingleTableSynthesizer):
         raise NotImplementedError("TVAESynthesizer doesn't support conditional sampling.")
     
 
-    def plot_loss(self, figsize=(10, 6), show_batch_loss=False, smoothing=None, save_path=None):
+    def plot_loss(self, figsize=(10, 6), show_batch_loss=False, save_path=None):
         """Plot the loss values over epochs during training.
         
-        This function visualizes how the loss values evolved during model training,
-        showing the progression of the loss across epochs.
+        This function visualizes how the loss values evolved during model training.
         
         Args:
             figsize (tuple): Figure size as (width, height). Defaults to (10, 6).
             show_batch_loss (bool): Whether to show individual batch losses. Defaults to False.
-            smoothing (int, optional): If provided, apply moving average smoothing 
-                with the specified window size to the epoch losses.
             save_path (str, optional): Path to save the plot. If None, the plot is not saved.
             
         Returns:
@@ -199,13 +196,6 @@ class TVAESynthesizer(LossValuesMixin, BaseSingleTableSynthesizer):
         # Group by epoch and calculate mean loss
         epoch_losses = loss_df.groupby('Epoch')['Loss'].mean().reset_index()
         
-        # Apply smoothing if requested
-        if smoothing and smoothing > 1:
-            epoch_losses['Smoothed_Loss'] = epoch_losses['Loss'].rolling(
-                window=min(smoothing, len(epoch_losses)), 
-                min_periods=1
-            ).mean()
-        
         # Create the plot
         fig, ax = plt.subplots(figsize=figsize)
         
@@ -214,37 +204,15 @@ class TVAESynthesizer(LossValuesMixin, BaseSingleTableSynthesizer):
             epoch_losses['Epoch'], 
             epoch_losses['Loss'], 
             'b-', 
-            linewidth=2, 
-            alpha=0.7 if smoothing else 1.0,
+            linewidth=2,
             label='Mean Loss per Epoch'
         )
         
-        # Plot smoothed loss if requested
-        if smoothing and smoothing > 1:
-            ax.plot(
-                epoch_losses['Epoch'],
-                epoch_losses['Smoothed_Loss'],
-                'r-',
-                linewidth=2.5,
-                label=f'Smoothed Loss (window={smoothing})'
-            )
-        
         # Add a scatter plot for individual batch losses if requested
         if show_batch_loss:
-            # Only show individual points if not too many or downsample
-            max_points = 1000
-            if len(loss_df) > max_points:
-                # Downsample intelligently to avoid too many points
-                sample_ratio = max_points / len(loss_df)
-                batch_loss_sample = loss_df.groupby('Epoch').apply(
-                    lambda x: x.sample(frac=sample_ratio)
-                ).reset_index(drop=True)
-            else:
-                batch_loss_sample = loss_df
-                
             ax.scatter(
-                batch_loss_sample['Epoch'], 
-                batch_loss_sample['Loss'], 
+                loss_df['Epoch'], 
+                loss_df['Loss'], 
                 alpha=0.2, 
                 color='blue', 
                 s=10,
@@ -259,9 +227,6 @@ class TVAESynthesizer(LossValuesMixin, BaseSingleTableSynthesizer):
         # Add grid and legend
         ax.grid(True, linestyle='--', alpha=0.7)
         ax.legend()
-        
-        # Y-axis formatting for better scale visualization
-        ax.ticklabel_format(axis='y', style='sci', scilimits=(-3, 3))
         
         # Set x-axis ticks to be integers
         ax.xaxis.set_major_locator(plt.MaxNLocator(integer=True))
